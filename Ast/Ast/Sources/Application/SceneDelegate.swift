@@ -14,8 +14,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        
+        guard let windowScene = (scene as? UIWindowScene),
+              let _ = UIApplication.shared.delegate as? AppDelegate else { return }
+
         window = UIWindow(windowScene: windowScene)
         window?.backgroundColor = .white
         window?.rootViewController = UIHostingController(rootView: SplashUI())
