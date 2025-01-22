@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -17,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         window?.backgroundColor = .white
-        window?.rootViewController = ViewController() //UIHostingController(rootView: MainUI(viewModel: mainViewModel))
+        window?.rootViewController = UIHostingController(rootView: SplashUI())
         window?.makeKeyAndVisible()
 
         
