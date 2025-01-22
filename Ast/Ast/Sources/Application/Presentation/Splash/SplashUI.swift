@@ -16,7 +16,7 @@ struct SplashUI: View {
             VStack {
                 HStack(spacing: 12) {
                     Text("👽")
-                    Text("ATC")
+                    Text("AST")
                         .fontColor(.h3 ,color: .white)
                 }
                 .padding(.top, 300)

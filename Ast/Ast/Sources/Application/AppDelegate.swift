@@ -11,49 +11,30 @@ import Combine
 import ComposableArchitecture
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder {
     var window: UIWindow?
     var cancellable = Set<AnyCancellable>()
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        return true
-    }
-
     
-    // MARK: - Core Data stack
+    func saveContext() {
+        CoreDataStack.shared.saveContext()
+    }
+}
 
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Ast")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
+extension AppDelegate: UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        window = UIWindow()
+        window?.backgroundColor = .black
+        
+        resetRootViewController(rootVc: UIHostingController(rootView: SplashUI()))
 
-    // MARK: - Core Data Saving support
-
-    func saveContext () {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
+        return true
     }
 
 }
 
 extension AppDelegate {
-    func resetRootViewController(rootVc: UIViewController? = nil) {
-//        window = UIWindow(frame: UIScreen.main.bounds)
-//        window?.backgroundColor = .black
-//        window?.makeKeyAndVisible()
-
+    func resetRootViewController(rootVc: UIViewController? = MainTabBarController()) {
         self.window?.rootViewController = rootVc
         self.window?.makeKeyAndVisible()
     }
