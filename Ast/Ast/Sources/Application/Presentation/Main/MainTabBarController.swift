@@ -34,12 +34,12 @@ private extension MainTabBarController {
             }
             .store(in: &cancellable)
 
-        App.shared.$goReportScreen
-            .dropFirst()
-            .sink { [weak self] _ in
-               // self?.selectedIndex = 1
-            }
-            .store(in: &cancellable)
+//        App.shared.$goReportScreen
+//            .dropFirst()
+//            .sink { [weak self] _ in
+//               // self?.selectedIndex = 1
+//            }
+//            .store(in: &cancellable)
 
     }
     
@@ -89,7 +89,7 @@ extension MainTabBarController: UITabBarControllerDelegate {
             // 캘린더
             case 1:
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: .ReportScreenScrollTop, object: nil)
+                    NotificationCenter.default.post(name: .CalendarScrollTop, object: nil)
                 }
             default: break
             }

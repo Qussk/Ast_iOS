@@ -13,7 +13,7 @@ final class App {
     static let shared = App()
     
     @Published private(set) var mainMenuToggle: Void = Void()
-    @Published private(set) var goReportScreen: Void = Void()
+    @Published private(set) var goCalendarToggle: Void = Void()
 
 }
 
@@ -24,6 +24,6 @@ extension App {
     }
     
     func toReportScreen() {
-        goReportScreen = Void()
+        goCalendarToggle = Void()
     }
 }

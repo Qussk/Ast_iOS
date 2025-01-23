@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct CalendarUI: View {
-    let reportScreenScrollTop = NotificationCenter.default.publisher(for: .ReportScreenScrollTop)
+    let reportScreenScrollTop = NotificationCenter.default.publisher(for: .CalendarScrollTop)
 
     var body: some View {
         Text("Hello, CalendarUI!")
