@@ -6,21 +6,75 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
+
 
 struct HomeUI: View {
+    let store: StoreOf<HomeFeature> = Store(initialState: HomeFeature.State()) { HomeFeature() }
     var body: some View {
-        ZStack {
-            Color(.systemBackground)
-            
-            ASTListView()
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            ZStack {
+                Color(.systemBackground)
+                VStack {
+                    HomeLeadTabUI(selectedTab: viewStore.selectedTab) { tab in
+                        viewStore.send(.selectTab(tab))
+                    }
+                    ASTListView()
+                    Spacer()
+                }
+            }
+            .onAppear {
+                viewStore.send(.viewAppeared)
+            }
         }
     }
 }
 
-struct HomeTopTabUI: View {
+fileprivate struct HomeLeadTabUI: View {
+    var selectedTab: HomeFeature.LeadType
+    let action: ((HomeFeature.LeadType) -> Void)
     var body: some View {
-        ZStack {
-            
+        VStack(alignment: .leading, spacing: -10) {
+            HStack(spacing: 0) {
+                HomeLeadTabButton(title: LeadType.daily.rawValue, isSelected: selectedTab == .daily) {
+                    action(.daily)
+                }
+                HomeLeadTabButton(title: LeadType.monthly.rawValue, isSelected: selectedTab == .monthly) {
+                    action(.monthly)
+                }
+                HomeLeadTabButton(title: LeadType.yearly.rawValue, isSelected: selectedTab == .yearly) {
+                    action(.yearly)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.bottom, -9)
+    }
+    
+    private struct HomeLeadTabButton: View {
+        let title: String
+        let isSelected: Bool
+        let action: (() -> Void)
+        var body: some View {
+            HStack {
+                VStack(alignment: .leading, spacing: 0) {
+                    Button(title) {
+                        action()
+                    }
+                    .font(isSelected ? .h4 : .h5)
+                    .foregroundColor(.t1)
+                    .frame(minHeight: 44)
+                    .overlay(alignment: .bottom) {
+                        
+                        if isSelected {
+                            Rectangle()
+                                .fill(Color.t1)
+                                .frame(width: 50, height: 4)
+                        }
+                    }
+                }
+                .padding(.horizontal, 18)
+            }
         }
     }
 }
@@ -71,8 +125,4 @@ struct ASTItemUI: View {
         }
         .frame(maxWidth: .infinity)
     }
-}
-
-#Preview {
-    HomeUI()
 }

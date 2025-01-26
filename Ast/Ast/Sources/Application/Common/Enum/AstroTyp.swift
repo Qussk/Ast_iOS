@@ -82,7 +82,7 @@ enum AstroTyp: Int {
 }
 
 enum LeadType: String, CaseIterable {
-    case daily = "오늘"
+    case daily = "일일"
     case monthly = "월간"
     case yearly = "년간"
 }
