@@ -15,7 +15,6 @@ struct HomeUI: View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             GeometryReader { geometry in
                 ZStack {
-                    Color(.systemBackground)
                     VStack {
                         HomeTopUI()
                         HomeLeadTabUI(selectedTab: viewStore.selectedTab) { tab in

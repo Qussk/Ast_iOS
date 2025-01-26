@@ -12,7 +12,8 @@ import ComposableArchitecture
 struct YearlyUI: View {
     var body: some View {
         VStack{
-           // Color.yellow
+           
         }
+        .background(Color(UIColor.systemGroupedBackground))
     }
 }

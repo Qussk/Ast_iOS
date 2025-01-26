@@ -8,19 +8,8 @@
 import Foundation
 
 
-enum AstroTyp: Int {
-    case aries = 0
-    case taurus
-    case gemini
-    case cancer
-    case leo
-    case virgo
-    case libra
-    case scorpio
-    case sagittarius
-    case capricorn
-    case aquarius
-    case pisces
+enum AstroTyp: String, CaseIterable {
+    case aries, taurus, gemini, cancer, leo, virgo, libra, scorpio, sagittarius, capricorn, aquarius, pisces
 
     var description: String {
         switch self {
@@ -54,30 +43,62 @@ enum AstroTyp: Int {
     var date: String {
         switch self {
         case .aries:
-            return "3월 21일 ~ 4월 19일"
+            return "3/21 ~ 4/19"
         case .taurus:
-            return "4월 20일 ~ 5월 20일"
+            return "4/20 ~ 5/20"
         case .gemini:
-            return "5월 21일 ~ 6월 21일"
+            return "5/21 ~ 6/21"
         case .cancer:
-            return "6월 22일 ~ 7월 22일"
+            return "6/22 ~ 7/22"
         case .leo:
-            return "7월 23일 ~ 8월 22일"
+            return "7/23 ~ 8/22"
         case .virgo:
-            return "8월 23일 ~ 9월 22일"
+            return "8/23 ~ 9/22"
         case .libra:
-            return "9월 23일 ~ 10월 23일"
+            return "9/23 ~ 10/23"
         case .scorpio:
-            return "10월 24일 ~ 11월 22일"
+            return "10/24 ~ 11/22"
         case .sagittarius:
-            return "11월 23일 ~ 12월 21일"
+            return "11/23 ~ 12/21"
         case .capricorn:
-            return "12월 22일 ~ 1월 19일"
+            return "12/22 ~ 1/19"
         case .aquarius:
-            return "1월 20일 ~ 2월 18일"
+            return "1/20 ~ 2/18"
         case .pisces:
-            return "2월 19일 ~ 3월 20일"
+            return "2/19 ~ 3/20"
         }
+    }
+    
+    var emoji: String {
+        switch self {
+        case .aries:
+            return "🐑"
+        case .taurus:
+            return "🐮"
+        case .gemini:
+            return "👯"
+        case .cancer:
+            return "🦀"
+        case .leo:
+            return "🦁"
+        case .virgo:
+            return "🧝🏻‍♀️"
+        case .libra:
+            return "⚖️"
+        case .scorpio:
+            return "🦂"
+        case .sagittarius:
+            return "🏹"
+        case .capricorn:
+            return "🐐"
+        case .aquarius:
+            return "🏺"
+        case .pisces:
+            return "🐟"
+        }
+    }
+    init?(from string: String) {
+        self.init(rawValue: string.lowercased())
     }
 }
 
