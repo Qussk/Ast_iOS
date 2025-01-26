@@ -24,6 +24,7 @@ struct HomeFeature {
     enum Action: Equatable {
         case viewAppeared
         case selectTab(LeadType)
+        case toAllMenuTapped
     }
     
     var body: some ReducerOf<Self> {
@@ -33,6 +34,9 @@ struct HomeFeature {
                 return .none
             case .selectTab(let tab):
                 state.selectedTab = tab
+                return .none
+            case .toAllMenuTapped:
+                print("전체메뉴")
                 return .none
             }
         }

@@ -16,13 +16,16 @@ struct HomeUI: View {
             ZStack {
                 Color(.systemBackground)
                 VStack {
+                    HomeTopUI()
                     HomeLeadTabUI(selectedTab: viewStore.selectedTab) { tab in
                         viewStore.send(.selectTab(tab))
                     }
-                    ASTListView()
+                    DailyItemUI()
                     Spacer()
                 }
             }
+            .padding(0)
+            .edgesIgnoringSafeArea(.top)
             .onAppear {
                 viewStore.send(.viewAppeared)
             }
@@ -30,6 +33,31 @@ struct HomeUI: View {
     }
 }
 
+fileprivate struct HomeTopUI: View {
+    let store: StoreOf<HomeFeature> = Store(initialState: HomeFeature.State()) { HomeFeature() }
+    var body: some View {
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            ZStack(alignment: .bottomTrailing) {
+                Color.orange
+                
+                HStack(spacing: 0) {
+                    Spacer()
+                    Button {
+                        viewStore.send(.toAllMenuTapped)
+                    } label: {
+                        Image("menu_icon")
+                    }
+                }
+                .padding(.horizontal, 18)
+                .padding(.bottom, 8)
+            }
+            .frame(height: 96)
+            .padding(.bottom, 0)
+        }
+    }
+}
+
+//MARK: 홈탭 - 일일,월간,년간
 fileprivate struct HomeLeadTabUI: View {
     var selectedTab: HomeFeature.LeadType
     let action: ((HomeFeature.LeadType) -> Void)
@@ -48,7 +76,7 @@ fileprivate struct HomeLeadTabUI: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.bottom, -9)
+        .padding([.top, .bottom], -10)
     }
     
     private struct HomeLeadTabButton: View {
@@ -70,6 +98,7 @@ fileprivate struct HomeLeadTabUI: View {
                             Rectangle()
                                 .fill(Color.t1)
                                 .frame(width: 50, height: 4)
+                                .padding(.top, -5)
                         }
                     }
                 }
@@ -79,50 +108,3 @@ fileprivate struct HomeLeadTabUI: View {
     }
 }
 
-struct ASTListView: View {
-    let data = [
-        ("짧은 텍스트", "🐑"),
-        ("중간 길이의 텍스트입니다.", "🐮"),
-        ("이 텍스트는 꽤나 길어서 셀의 높이가 동적으로 늘어나야 합니다. 여러 줄에 걸쳐서 렌더링되는 것을 확인해 보세요.","🏹")
-    ]
-    
-    var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 10) {
-                ForEach(data, id: \.0) { item in
-                    ASTItemUI(text: item.0, imageString: item.1)
-                        .padding(.horizontal, 18)
-                }
-            }
-            .padding(.vertical, 10)
-        }
-        .background(Color(UIColor.systemGroupedBackground))
-    }
-}
-
-
-struct ASTItemUI: View {
-    let text: String
-    let imageString: String
-
-    var body: some View {
-        ZStack(alignment: .leading) {
-            Rectangle()
-                .fill(Color.white)
-                .cornerRadius(25)
-                .shadow(color: Color.black.opacity(0.2), radius: 8, x: 0, y: 4)
-            
-            VStack(alignment: .leading, spacing: 10) {
-                Text(imageString)
-                    .font(.system(size: 24))
-                    .multilineTextAlignment(.leading)
-                Text(text)
-                    .font(.body)
-                    .foregroundColor(.black)
-                    .multilineTextAlignment(.leading)
-            }
-            .padding(20)
-        }
-        .frame(maxWidth: .infinity)
-    }
-}
