@@ -8,9 +8,8 @@
 import SwiftUI
 import ComposableArchitecture
 
-
 //MARK: 컨텐츠 - 일일
-struct DailyItemUI: View {
+struct DailyUI: View {
     let data = [
         ("짧은 텍스트", "🐑"),
         ("중간 길이의 텍스트입니다.", "🐮"),

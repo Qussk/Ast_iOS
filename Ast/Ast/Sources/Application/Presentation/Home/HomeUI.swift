@@ -13,21 +13,34 @@ struct HomeUI: View {
     let store: StoreOf<HomeFeature> = Store(initialState: HomeFeature.State()) { HomeFeature() }
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            ZStack {
-                Color(.systemBackground)
-                VStack {
-                    HomeTopUI()
-                    HomeLeadTabUI(selectedTab: viewStore.selectedTab) { tab in
-                        viewStore.send(.selectTab(tab))
+            GeometryReader { geometry in
+                ZStack {
+                    Color(.systemBackground)
+                    VStack {
+                        HomeTopUI()
+                        HomeLeadTabUI(selectedTab: viewStore.selectedTab) { tab in
+                            viewStore.send(.selectTab(tab))
+                        }
+                        switch viewStore.selectedTab {
+                        case .daily:
+                            DailyUI()
+                        case .monthly:
+                            MonthlyUI()
+                        case .yearly:
+                            YearlyUI()
+                        }
+                        Spacer()
                     }
-                    DailyItemUI()
-                    Spacer()
                 }
-            }
-            .padding(0)
-            .edgesIgnoringSafeArea(.top)
-            .onAppear {
-                viewStore.send(.viewAppeared)
+                .padding(0)
+                .edgesIgnoringSafeArea(.top)
+                .onAppear {
+                    viewStore.send(.viewAppeared)
+                }
+                .onChange(of: geometry.size) { newSize in
+                    let isLandscape = newSize.width > newSize.height
+                    viewStore.send(.orientationChanged(isLandscape))
+                }
             }
         }
     }
@@ -51,8 +64,9 @@ fileprivate struct HomeTopUI: View {
                 .padding(.horizontal, 18)
                 .padding(.bottom, 8)
             }
-            .frame(height: 96)
+            .frame(height: viewStore.isLandscape ? 44 : 96)
             .padding(.bottom, 0)
+            .cornerRadius(15, corners: [.bottomLeft, .bottomRight])
         }
     }
 }

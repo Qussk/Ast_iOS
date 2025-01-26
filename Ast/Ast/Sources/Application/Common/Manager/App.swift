@@ -8,17 +8,16 @@ import Foundation
 import Combine
 import UIKit
 
-
 final class App {
     static let shared = App()
-    
+
+    private var deviceModelName: String = ""
     @Published private(set) var leadType: LeadType = .daily
     @Published private(set) var mainMenuToggle: Void = Void()
     @Published private(set) var goCalendarToggle: Void = Void()
-
-    private var deviceModelName: String = ""
     
-    private init() {}
+    init() {
+    }
 }
 
 // MARK: - Main Menu Control

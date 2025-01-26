@@ -7,6 +7,7 @@
 
 import Foundation
 import ComposableArchitecture
+import UIKit
 
 @Reducer
 struct HomeFeature {
@@ -15,16 +16,19 @@ struct HomeFeature {
         case monthly = "월간"
         case yearly = "년간"
     }
-
+    
     struct State: Equatable {
         @PresentationState var isSelection: HomeFeature.State?
+        var isLandscape = UIDevice.current.orientation.isLandscape //가로 : true, 세로 : false
         var selectedTab: LeadType = .daily
+        let currentMonthlydate = Date()
     }
     
     enum Action: Equatable {
         case viewAppeared
         case selectTab(LeadType)
         case toAllMenuTapped
+        case orientationChanged(Bool)
     }
     
     var body: some ReducerOf<Self> {
@@ -38,7 +42,11 @@ struct HomeFeature {
             case .toAllMenuTapped:
                 print("전체메뉴")
                 return .none
+            case .orientationChanged(let isLandscape):
+                state.isLandscape = isLandscape
+                return .none
             }
         }
     }
+   
 }
