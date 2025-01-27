@@ -79,7 +79,7 @@ struct HomeFeature {
                     LeadDaily(rank: 4, astroNm: "sagittarius", content: "오늘은 조금 더 차분히 생각하고 결정해야 할 날입니다. 급한 결정을 내리지 않도록 주의하세요. 애정운에서는 약간의 거리감이 느껴질 수 있습니다. 금전적으로는 지출을 자제하고, 필요한 것만 구매하세요. 건강은 하루 중 지칠 수 있으니 충분한 휴식이 필요합니다.", luckyKey: "텀블러", luckyColor: "레드", luckyWord: "ㅅ", luckyFood: "순두부찌개"),
                     LeadDaily(rank: 5, astroNm: "scorpio", content: "오늘은 집중력이 강한 하루입니다. 중요한 일에 집중하여 성과를 올릴 수 있습니다. 애정운에서는 상대방의 입장을 고려한 배려가 필요합니다. 금전적으로는 예상치 못한 지출이 생길 수 있으니 예산을 세워 신중하게 소비하세요. 건강은 적당한 운동이 필요합니다.", luckyKey: "헤어핀", luckyColor: "흰색", luckyWord: "ㅂ", luckyFood: "떡볶이"),
                     LeadDaily(rank: 6, astroNm: "pisces", content: "오늘은 창의적이고 직관적인 힘이 솟구치는 날입니다. 감정적으로도 안정감을 느끼며, 중요한 결정을 내리기에 좋은 순간입니다. 애정운에서는 상대방의 진심을 알게 되어 더욱 가까워질 수 있습니다. 금전적으로는 나쁜 기회보다는 좋은 기회를 잡는 데 집중하세요. 건강은 활기차고 긍정적입니다.", luckyKey: "카드지갑", luckyColor: "하늘색", luckyWord: "ㅅ", luckyFood: "김치전"),
-                    LeadDaily(rank: 7, astroNm: "libra", content: "오늘은 집중력과 성실함으로 좋은 결과를 얻을 수 있는 날입니다. 직장에서의 성과가 있을 수 있습니다. 애정운에서는 솔직한 대화가 중요합니다. 금전적으로는 예산을 잘 세워 지출을 조절하세요. 건강은 조금 지친 느낌이 있을 수 있으니 휴식이 필요합니다.", luckyKey: "스케줄러", luckyColor: "연두색", luckyWord: "ㅅ", luckyFood: "돈까스")
+                    LeadDaily(rank: 7, astroNm: "libra", content: "오늘은 집중력과 성실함으로 좋은 결과를 얻을 수 있는 날입니다. 직장에서의 성과가 있을 수 있습니다. 애정운에서는 솔직한 대화가 중요합니다. 금전적으로는 예산을 잘 세워 지출을 조절하세요. 건강은 조금 지친 느낌이 있을 수 있으니 휴식이 필요합니다.4424234dfsdasdasdaweq424qweasdawe2342asdasdasdsdasdasdsdw42q434asdasd3wqe4234q234q234q234q234q234q234q234q234q234q234q234q234q234q234q234q234q234q234q234q234q234q234q234q234", luckyKey: "스케줄러", luckyColor: "연두색", luckyWord: "ㅅ", luckyFood: "돈까스")
                 ]
                 state.leadDays = mockData
                 return .none

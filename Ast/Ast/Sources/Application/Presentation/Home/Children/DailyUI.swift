@@ -51,8 +51,8 @@ struct DailyItemUI: View {
                     .cornerRadius(25)
                     .shadow(color: Color.black.opacity(0.2), radius: 8, x: 0, y: 4)
 
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack(alignment: .bottom, spacing: 10) {
+                LazyVStack(alignment: .leading, spacing: 10) {
+                    LazyHStack(alignment: .bottom, spacing: 10) {
                         Text("\(item.rank)위")
                             .fontColor(.h4, color: .b1)
                             .multilineTextAlignment(.leading)
@@ -64,9 +64,11 @@ struct DailyItemUI: View {
                         Text("\(String(describing: item.rank.getTopRank()))")
                             .font(.system(size: 24))
                             .multilineTextAlignment(.trailing)
+                            .padding(.trailing, 16)
                     }
                     .fixedSize(horizontal: true, vertical: false)
-                    VStack(alignment: .leading, spacing: 10) {
+                    
+                    LazyVStack(alignment: .leading, spacing: 10) {
                         Text(item.content)
                             .fontColor(.h7, color: .b1)
                             .lineSpacing(5)
@@ -75,10 +77,10 @@ struct DailyItemUI: View {
                             .padding(.top, 8)
                             .padding(.trailing, 16)
                     }
-                    .frame(maxWidth: screenSize.width, maxHeight: screenSize.height/2)
+                    .frame(maxWidth: screenSize.width, maxHeight: .infinity)
                     .fixedSize(horizontal: false, vertical: true)
 
-                    HStack(spacing: 0) {
+                    LazyHStack(spacing: 0) {
                         Text("행운의 열쇠 : ")
                             .fontColor(.h6, color: .b1)
                         Text(item.luckyKey)
@@ -95,7 +97,7 @@ struct DailyItemUI: View {
                     .multilineTextAlignment(.leading)
                     .fixedSize(horizontal: true, vertical: true)
                     
-                    HStack(spacing: 0) {
+                    LazyHStack(spacing: 0) {
                         Text("행운의 음식 : ")
                             .fontColor(.h6, color: .b1)
                         Text(item.luckyFood)
@@ -115,9 +117,9 @@ struct DailyItemUI: View {
                     
                     DailyItemLikeUI(store: store, item: item)
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(20)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }
@@ -129,7 +131,7 @@ struct DailyItemLikeUI: View {
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            HStack(spacing: 12) {
+            LazyHStack(spacing: 12) {
                 let img: any View = DailyItemUI(store: store, item: item)
 
                 Button {
@@ -189,7 +191,7 @@ final class WritePhotosResponder: NSObject {
         if let error {
             print(error)
         } else {
-          //  UIApplication.topmostViewController()?.showToast(message: "이미지 저장이 완료되었습니다.")
+            UIApplication.topmostViewController()?.showToast(message: "저장이 완료 되었습니다!")
         }
     }
 }

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F19CF2852D41014000B86754 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = F19CF2842D41014000B86754 /* ComposableArchitecture */; };
-		F19CF3892D47454D00B86754 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = F19CF3882D47454D00B86754 /* Kingfisher */; };
+		F19CF38E2D4772A300B86754 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F19CF38D2D4772A300B86754 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,8 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F19CF3892D47454D00B86754 /* Kingfisher in Frameworks */,
 				F19CF2852D41014000B86754 /* ComposableArchitecture in Frameworks */,
+				F19CF38E2D4772A300B86754 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,7 +86,7 @@
 			name = Ast;
 			packageProductDependencies = (
 				F19CF2842D41014000B86754 /* ComposableArchitecture */,
-				F19CF3882D47454D00B86754 /* Kingfisher */,
+				F19CF38D2D4772A300B86754 /* SnapKit */,
 			);
 			productName = Ast;
 			productReference = F19CF1F22D40FA5700B86754 /* Ast.app */;
@@ -118,7 +118,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				F19CF2832D41014000B86754 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
-				F19CF3872D47454D00B86754 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				F19CF38C2D4772A300B86754 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F19CF1F32D40FA5700B86754 /* Products */;
@@ -364,12 +364,12 @@
 				minimumVersion = 1.17.1;
 			};
 		};
-		F19CF3872D47454D00B86754 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+		F19CF38C2D4772A300B86754 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 8.1.3;
+				minimumVersion = 5.7.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -380,10 +380,10 @@
 			package = F19CF2832D41014000B86754 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
 		};
-		F19CF3882D47454D00B86754 /* Kingfisher */ = {
+		F19CF38D2D4772A300B86754 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F19CF3872D47454D00B86754 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
+			package = F19CF38C2D4772A300B86754 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

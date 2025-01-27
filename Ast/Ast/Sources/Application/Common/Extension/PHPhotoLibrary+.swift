@@ -7,6 +7,7 @@
 
 import Photos
 
+/*
 extension PHPhotoLibrary {
     enum AuthorizationStatus {
         case notDetermined
@@ -35,3 +36,4 @@ extension PHPhotoLibrary {
         }
     }
 }
+*/

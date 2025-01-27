@@ -1,5 +1,5 @@
 {
-  "originHash" : "3c4b611f981c72c157ae05aec9f60bac065ede586d3a2f32953db6a5fae5aba1",
+  "originHash" : "6ae6fbaced54a8a644852f6b458a9a560e76bb5b86ce9486efa08db281d63e12",
   "pins" : [
     {
       "identity" : "combine-schedulers",
@@ -11,12 +11,12 @@
       }
     },
     {
-      "identity" : "kingfisher",
+      "identity" : "snapkit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/onevcat/Kingfisher.git",
+      "location" : "https://github.com/SnapKit/SnapKit.git",
       "state" : {
-        "revision" : "e6749919f9761d573d37a7d7e78b1b854c191d7f",
-        "version" : "8.1.3"
+        "revision" : "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
+        "version" : "5.7.1"
       }
     },
     {
