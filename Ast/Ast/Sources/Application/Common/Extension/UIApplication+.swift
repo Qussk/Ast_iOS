@@ -15,6 +15,17 @@ extension UIApplication {
 }
 
 extension UIApplication {
+    static var topSafeAreaHeight: CGFloat  {
+        let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        return scene?.windows.first?.safeAreaInsets.top ?? .zero
+    }
+    static var bottomSafeAreaHeight: CGFloat  {
+        let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        return scene?.windows.first?.safeAreaInsets.bottom ?? .zero
+    }
+}
+
+extension UIApplication {
     var window: UIWindow? {
         return UIApplication.shared.connectedScenes.compactMap { ($0 as? UIWindowScene)?.keyWindow }.last
     }

@@ -9,6 +9,7 @@ import Foundation
 
 
 extension String {
+    //별자리이름 -> 한글명
     func getNameDescription() -> String {
         return AstroTyp(from: self)?.description ?? ""
     }

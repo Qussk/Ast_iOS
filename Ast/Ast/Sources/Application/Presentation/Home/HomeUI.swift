@@ -22,7 +22,7 @@ struct HomeUI: View {
                         }
                         switch viewStore.selectedTab {
                         case .daily:
-                            DailyUI()
+                            DailyUI(store: store)
                         case .monthly:
                             MonthlyUI()
                         case .yearly:

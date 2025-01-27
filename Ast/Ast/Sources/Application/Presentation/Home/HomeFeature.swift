@@ -46,11 +46,11 @@ struct HomeFeature {
         var leadDays: [LeadDaily] = []
         var isLike:Bool = false
         var isLikeImagenamed:String = "heart"
-
     }
     
     enum Action: Equatable {
         case viewAppeared
+        //case binding(BindingAction<State>)
         case selectTab(LeadType)
         case toAllMenuTapped
         case setDailyLead
@@ -95,6 +95,8 @@ struct HomeFeature {
                 return .none
             case .orientationChanged(let isLandscape):
                 state.isLandscape = isLandscape
+                return .none
+            default:
                 return .none
             }
         }
