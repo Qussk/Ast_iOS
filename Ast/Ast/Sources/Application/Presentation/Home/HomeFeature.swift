@@ -39,19 +39,21 @@ struct HomeFeature {
         }
     }
     
-    struct State: Equatable, Hashable {
-        @PresentationState var isSelection: HomeFeature.State?
+    struct State: Equatable {
+//        @PresentationState var dailyPopup: DonationPopupUIFeature.State?
+        var dailyPopup = DonationPopupUIFeature.State()
         var isLandscape = UIDevice.current.orientation.isLandscape //가로 : true, 세로 : false
         var selectedTab: LeadType = .daily
         let currentMonthlydate = Date()
         var leadDays: [LeadDaily] = []
         var isLike:Bool = false
         var isLikeImagenamed:String = "heart"
+//        var topProxy0 = HomeTopProxy0Feature.State()
     }
     
-    enum Action: Equatable {
+    enum Action: BindableAction, Equatable {
         case viewAppeared
-        //case binding(BindingAction<State>)
+        case binding(BindingAction<State>)
         case selectTab(LeadType)
         case toInfomationTapped
         case toAllMenuTapped
@@ -60,11 +62,21 @@ struct HomeFeature {
         case toLikeTapped
         case toShareTapped
         case toDownloadTapped
+        case dailyPopup(PresentationAction<DonationPopupUIFeature.Action>)
+        case showWeaklyTapped
+        case setWeakly
+
     }
     
     var body: some ReducerOf<Self> {
+        BindingReducer()
+//        Scope(state: \.dailyPopup, action: /Action.dailyPopup) {
+//            DonationPopupUIFeature()
+//        }
         Reduce { state, action in
             switch action {
+            case .binding(_):
+                return .none
             case .viewAppeared:
                 return .none
             case .selectTab(let tab):
@@ -96,6 +108,16 @@ struct HomeFeature {
                 return .none
             case .toDownloadTapped:
                 return .none
+            case .dailyPopup:
+//                state.dailySelectionPopup = DonationPopupUIFeature.State()
+                return .none
+            case .showWeaklyTapped:
+                
+                return .run { send in
+                    await send(.setWeakly)
+                }
+            case .setWeakly :
+                return .none
             case .orientationChanged(let isLandscape):
                 state.isLandscape = isLandscape
                 return .none
@@ -103,5 +125,8 @@ struct HomeFeature {
                 return .none
             }
         }
+//        .ifLet(\.dailyPopup, action: /Action.dailyPopup) {
+//            DonationPopupUIFeature()
+//        }
     }
 }
