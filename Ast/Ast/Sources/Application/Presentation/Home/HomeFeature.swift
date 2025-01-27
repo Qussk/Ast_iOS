@@ -13,6 +13,7 @@ import UIKit
 struct HomeFeature {
     enum LeadType: String, CaseIterable {
         case daily = "일일"
+        case weekly = "주간"
         case monthly = "월간"
         case yearly = "년간"
     }
@@ -52,6 +53,7 @@ struct HomeFeature {
         case viewAppeared
         //case binding(BindingAction<State>)
         case selectTab(LeadType)
+        case toInfomationTapped
         case toAllMenuTapped
         case setDailyLead
         case orientationChanged(Bool)
@@ -67,6 +69,9 @@ struct HomeFeature {
                 return .none
             case .selectTab(let tab):
                 state.selectedTab = tab
+                return .none
+            case .toInfomationTapped:
+                print("안내")
                 return .none
             case .toAllMenuTapped:
                 print("전체메뉴")
@@ -88,10 +93,8 @@ struct HomeFeature {
 //                state.isLikeImagenamed = state.isLike ? "heart.fill" : "heart"
                 return .none
             case .toShareTapped:
-                print("공유하기")
                 return .none
             case .toDownloadTapped:
-                print("사진첩에 저장")
                 return .none
             case .orientationChanged(let isLandscape):
                 state.isLandscape = isLandscape

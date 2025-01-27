@@ -23,6 +23,8 @@ struct HomeUI: View {
                         switch viewStore.selectedTab {
                         case .daily:
                             DailyUI(store: store)
+                        case .weekly:
+                            WeeklyUI()
                         case .monthly:
                             MonthlyUI()
                         case .yearly:
@@ -52,8 +54,17 @@ fileprivate struct HomeTopUI: View {
             ZStack(alignment: .bottomTrailing) {
                 Color.orange
                 
-                HStack(spacing: 0) {
+                HStack(spacing: 12) {
                     Spacer()
+                    Button {
+                        viewStore.send(.toInfomationTapped)
+                    } label: {
+                        Image(systemName: "info.circle")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.white)
+                    }
+
                     Button {
                         viewStore.send(.toAllMenuTapped)
                     } label: {
@@ -70,7 +81,7 @@ fileprivate struct HomeTopUI: View {
     }
 }
 
-//MARK: 홈탭 - 일일,월간,년간
+//MARK: 홈탭 - 일일,주간,월간,년간
 fileprivate struct HomeLeadTabUI: View {
     var selectedTab: HomeFeature.LeadType
     let action: ((HomeFeature.LeadType) -> Void)
@@ -79,6 +90,9 @@ fileprivate struct HomeLeadTabUI: View {
             HStack(spacing: 0) {
                 HomeLeadTabButton(title: LeadType.daily.rawValue, isSelected: selectedTab == .daily) {
                     action(.daily)
+                }
+                HomeLeadTabButton(title: LeadType.weakly.rawValue, isSelected: selectedTab == .weekly) {
+                    action(.weekly)
                 }
                 HomeLeadTabButton(title: LeadType.monthly.rawValue, isSelected: selectedTab == .monthly) {
                     action(.monthly)

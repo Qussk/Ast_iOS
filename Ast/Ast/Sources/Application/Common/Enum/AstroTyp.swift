@@ -104,6 +104,7 @@ enum AstroTyp: String, CaseIterable {
 
 enum LeadType: String, CaseIterable {
     case daily = "일일"
+    case weakly = "주간"
     case monthly = "월간"
     case yearly = "년간"
 }

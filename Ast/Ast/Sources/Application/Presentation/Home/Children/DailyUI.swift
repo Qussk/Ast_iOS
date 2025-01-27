@@ -33,6 +33,7 @@ struct DailyUI: View {
                     viewStore.send(.setDailyLead)
                 }
             }
+            .scrollIndicators(.hidden)
             .background(Color(UIColor.systemGroupedBackground))
         }
     }

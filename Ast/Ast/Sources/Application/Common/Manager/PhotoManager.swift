@@ -26,6 +26,8 @@ class PhotoManager {
             self.permissionStatus = .denied
         case .notDetermined:
             self.permissionStatus = .notDetermined
+        case .limited:
+            self.permissionStatus = .notDetermined
         @unknown default:
             self.permissionStatus = .notDetermined
         }
