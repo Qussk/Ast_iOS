@@ -65,19 +65,18 @@ struct HomeFeature {
 
     
     struct State: Equatable {
-        var dailyPopup = DonationPopupUIFeature.State()
         var isLandscape = UIDevice.current.orientation.isLandscape //가로 : true, 세로 : false
         var selectedTab: LeadType = .daily
         var leadDays: [LeadDaily] = []
         var isLike:Bool = false
         var isLikeImagenamed:String = "heart"
-        var toAllMenu = AllMenuUIFeature.State()
-        
+        @PresentationState var toMenu: AllMenuUIFeature.State?
+        @PresentationState var dailyPopup: DonationPopupUIFeature.State?
+
         //주간
         let currentMonthlydate = Date()
         var isShowWeekly:Bool = false
         var leadWeaks: LeadWeakly?
-        
     }
     
     enum Action: BindableAction, Equatable {
@@ -86,12 +85,13 @@ struct HomeFeature {
         case selectTab(LeadType)
         case toInfomationTapped
         case toAllMenuTapped
-        case toAllMenu(AllMenuUIFeature.Action)
+        case toMenu(PresentationAction<AllMenuUIFeature.Action>)
         case setDailyLead
         case orientationChanged(Bool)
         case toLikeTapped
         case toShareTapped
         case toDownloadTapped
+        case dailySelectionPopup
         case dailyPopup(PresentationAction<DonationPopupUIFeature.Action>)
         case showWeaklyTapped
         case setWeakly
@@ -100,13 +100,7 @@ struct HomeFeature {
     
     var body: some ReducerOf<Self> {
         BindingReducer()
-        Scope(state: \.toAllMenu, action: /Action.toAllMenu) {
-            AllMenuUIFeature()
-        }
-
-        Reduce {
-            state,
-            action in
+        Reduce { state, action in
             switch action {
             case .binding(_):
                 return .none
@@ -120,11 +114,9 @@ struct HomeFeature {
                 return .none
             case .toAllMenuTapped:
                 print("전체메뉴")
-                return .run { send in
-                    await send(.toAllMenu(.viewAppeared))
-                }
-            case .toAllMenu(_):
-                state.toAllMenu = AllMenuUIFeature.State()
+                return .none
+            case .toMenu:
+                state.toMenu = AllMenuUIFeature.State()
                 return .none
             case .setDailyLead:
                 let mock: [LeadDaily] = [
@@ -146,8 +138,16 @@ struct HomeFeature {
                 return .none
             case .toDownloadTapped:
                 return .none
-            case .dailyPopup:
+            case .dailySelectionPopup:
+                state.dailyPopup = DonationPopupUIFeature.State(isOn: true)
+                return .none
+            case let .dailyPopup(.presented(action)):
                 //                state.dailySelectionPopup = DonationPopupUIFeature.State()
+                if action == .confirm {
+                    
+                }
+                state.dailyPopup = nil
+                
                 return .none
             case .showWeaklyTapped:
                 state.isShowWeekly = true
@@ -173,8 +173,12 @@ struct HomeFeature {
                 return .none
             }
         }
-//        .ifLet(\.dailyPopup, action: /Action.dailyPopup) {
-//            DonationPopupUIFeature()
-//        }
+        .ifLet(\.$toMenu, action: /Action.toMenu) {
+            AllMenuUIFeature()
+        }
+        .ifLet(\.$dailyPopup, action: /Action.dailyPopup) {
+            DonationPopupUIFeature()
+        }
+
     }
 }

@@ -117,16 +117,14 @@ struct DailyItemUI: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(20)
+                .onTapGesture {
+                    viewStore.send(.dailySelectionPopup)
+                }
             }
-            .onTapGesture {
-               // viewStore.send(.dailySelectionPopup())
-            }
-//            .clearFullScreenCover(store: store.scope(state: \.dailyPopup, action: { .dailyPopup($0) }), content: { store in
-//                DonationPopupUI(store: store)
-//            })
-//            .transaction({ transaction in
-//                transaction.disablesAnimations = true
-//            })
+            .clearFullScreenCover(store: store.scope(state: \.$dailyPopup, action: { .dailyPopup($0) }), content: {
+                store in
+                DonationPopupUI(store: store)
+            })
         }
     }
 }
