@@ -7,7 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
-
+  
 //MARK: 컨텐츠 - 일일
 struct DailyUI: View {
     let store: StoreOf<HomeFeature>
