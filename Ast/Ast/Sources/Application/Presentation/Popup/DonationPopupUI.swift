@@ -9,8 +9,8 @@ import SwiftUI
 import ComposableArchitecture
 
 
-struct DonationPopupUI: View {
-    let store: StoreOf<DonationPopupUIFeature>
+struct CommonPopupUI: View {
+    let store: StoreOf<CommonPopupUIFeature>
     @State private var isPressed = false
 
     var body: some View {
@@ -30,14 +30,22 @@ struct DonationPopupUI: View {
                         .fontColor(.h8, color: .b2)
                         .padding(.horizontal, 24)
 
-                    Image(systemName: "pencil")
-                    
+                    Image(viewStore.imageName)
+                        .resizable()
+                        .padding(.top, 10)
+                        .frame(width: 160, height: 154)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    Text(viewStore.bottomText)
+                        .fontColor(.l1, color: .b1)
+                        .padding(.horizontal, 24)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.bottom, 10)
                     Button {
                         viewStore.send(.confirm)
                     } label: {
                         HStack {
                             Spacer()
-                            Text("광고보고 복채 내기(💰+2 획득)")
+                            Text(viewStore.confirmText)
                                 .fontColor(.h6, color: .white)
                             Spacer()
                         }
@@ -53,7 +61,7 @@ struct DonationPopupUI: View {
                     } label: {
                         HStack {
                             Spacer()
-                            Text("괜찮아요")
+                            Text(viewStore.cancelText)
                                 .fontColor(.h6, color: .white)
                             Spacer()
                         }
@@ -77,19 +85,26 @@ struct DonationPopupUI: View {
             .onTapGesture {
                 viewStore.send(.confirm)
             }
+            .onAppear {
+                
+            }
         }
     }
 }
 
 @Reducer
-struct DonationPopupUIFeature {
+struct CommonPopupUIFeature {
     struct State: Equatable {
-        var titleText:String = "운세가 너무 찰떡이에요!"
-        var subText:String = "후덜덜..혹시 저 보고 계세요..?"
-        var isOn: Bool = false
+        var titleText:String = ""
+        var subText:String = ""
+        var imageName:String = ""
+        var bottomText:String = ""
+        var confirmText:String = ""
+        var cancelText:String = ""
     }
     
     enum Action: Equatable {
+        case viewAppeared
         case confirm
         case cancel
     }
@@ -99,6 +114,8 @@ struct DonationPopupUIFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .viewAppeared:
+                return .none
             case .confirm:
                 return .run { _ in
                     await self.dismiss()

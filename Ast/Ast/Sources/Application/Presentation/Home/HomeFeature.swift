@@ -71,7 +71,7 @@ struct HomeFeature {
         var isLike:Bool = false
         var isLikeImagenamed:String = "heart"
         @PresentationState var toMenu: AllMenuUIFeature.State?
-        @PresentationState var dailyPopup: DonationPopupUIFeature.State?
+        @PresentationState var dailyPopup: CommonPopupUIFeature.State?
 
         //주간
         let currentMonthlydate = Date()
@@ -92,7 +92,7 @@ struct HomeFeature {
         case toShareTapped
         case toDownloadTapped
         case dailySelectionPopup
-        case dailyPopup(PresentationAction<DonationPopupUIFeature.Action>)
+        case dailyPopup(PresentationAction<CommonPopupUIFeature.Action>)
         case showWeaklyTapped
         case setWeakly
 
@@ -100,7 +100,9 @@ struct HomeFeature {
     
     var body: some ReducerOf<Self> {
         BindingReducer()
-        Reduce { state, action in
+        Reduce {
+            state,
+            action in
             switch action {
             case .binding(_):
                 return .none
@@ -139,10 +141,17 @@ struct HomeFeature {
             case .toDownloadTapped:
                 return .none
             case .dailySelectionPopup:
-                state.dailyPopup = DonationPopupUIFeature.State(isOn: true)
+                state.dailyPopup = CommonPopupUIFeature.State(
+                    titleText: "운세가 너무 찰떡이에요!",
+                    subText: "후덜덜..혹시 저 보고 계세요..?",
+                    imageName: "donation",
+                    bottomText: "복채를 내고 운세 캘린더를 경험해 보세요!",
+                    confirmText: "광고보고 복채 내기(💰+2 획득)",
+                    cancelText: "괜찮아요"
+                )
                 return .none
             case let .dailyPopup(.presented(action)):
-                //                state.dailySelectionPopup = DonationPopupUIFeature.State()
+                
                 if action == .confirm {
                     
                 }
@@ -173,12 +182,11 @@ struct HomeFeature {
                 return .none
             }
         }
-        .ifLet(\.$toMenu, action: /Action.toMenu) {
+        .ifLet(\.$toMenu, action: \.toMenu) {
             AllMenuUIFeature()
         }
-        .ifLet(\.$dailyPopup, action: /Action.dailyPopup) {
-            DonationPopupUIFeature()
+        .ifLet(\.$dailyPopup, action: \.dailyPopup) {
+            CommonPopupUIFeature()
         }
-
     }
 }

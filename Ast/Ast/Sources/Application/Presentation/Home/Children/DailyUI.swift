@@ -121,9 +121,9 @@ struct DailyItemUI: View {
                     viewStore.send(.dailySelectionPopup)
                 }
             }
-            .clearFullScreenCover(store: store.scope(state: \.$dailyPopup, action: { .dailyPopup($0) }), content: {
+            .clearFullScreenCover(store: store.scope(state: \.$dailyPopup, action: \.dailyPopup), content: {
                 store in
-                DonationPopupUI(store: store)
+                CommonPopupUI(store: store)
             })
         }
     }
