@@ -10,10 +10,19 @@ import Foundation
 
 extension Date {
     
-    public func isCurrentDate() -> String {
-        let currentDate = Date()  // 현재 날짜
+    //현재 월 가져오기
+    public func toMonthDate() -> String {
+        let currentDate = Date()
         let calendar = Calendar.current
-        let currentMonth = calendar.component(.month, from: currentDate)  // 현재 월
+        let currentMonth = calendar.component(.month, from: currentDate)
         return "\(currentMonth)월"
+    }
+    
+    //현재 달의 주차 가져오기
+    func toWeekOfmonth() -> String {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        let weekOfMonth = calendar.component(.weekOfMonth, from: currentDate)
+        return "\(weekOfMonth)"
     }
 }

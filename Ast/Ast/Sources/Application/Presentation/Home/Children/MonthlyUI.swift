@@ -15,7 +15,7 @@ struct MonthlyUI: View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 10) {
-                    Text(viewStore.currentMonthlydate.isCurrentDate())
+                    Text(viewStore.currentMonthlydate.toMonthDate())
                         .font(.largeTitle).bold()
                         .padding(.horizontal, 18)
                 }
