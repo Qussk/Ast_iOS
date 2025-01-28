@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 import Combine
 import ComposableArchitecture
-
+  
 @UIApplicationMain
 final class AppDelegate: UIResponder {
     var window: UIWindow?
