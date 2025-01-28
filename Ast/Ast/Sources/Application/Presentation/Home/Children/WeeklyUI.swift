@@ -37,9 +37,25 @@ struct EmptyWeeklyUI: View {
                 
                 Text("\(viewStore.currentMonthlydate.toMonthDate())의 \(viewStore.currentMonthlydate.toWeekOfmonth())주차 운세를 \n알아 보세요")
                     .fontColor(.s1, color: .b1)
+                
+                ZStack {
+                    Rectangle()
+                        .fill(Color.white)
+                        .cornerRadius(20)
+                    VStack(alignment: .leading) {
+                        Text("어떤 것을 알 수 있나요?")
+                            .fontColor(.h6, color: .b2)
+                            .padding(.top, 20)
+                            .padding(.bottom, 10)
+                        Text("별톡의 독자적인 기술을 통해\n주간 별자리 위치와 주요 행성의 이동을 참고하여 그로 인한 에너지를 해석해요.")
+                            .fontColor(.l2, color: .b1)
+                            .padding(.bottom, 20)
+                    }
+                    .padding(.horizontal, 10)
+                }
+                
                 Text("(*주간 운세는 광고를 본 후 확인할 수 있어요)")
-                Text("(*주간 운세는 광고를 본 후 확인할 수 있어요)")
-                    .fontColor(.tiny1, color: .b1)
+                    .fontColor(.c1, color: .b2)
                 
                 Button {
                     viewStore.send(.showWeaklyTapped)
@@ -62,6 +78,7 @@ struct EmptyWeeklyUI: View {
         }
     }
 }
+
 struct WeeklyShowUI: View {
     let store: StoreOf<HomeFeature>
     
@@ -109,30 +126,6 @@ struct WeeklyShowUI: View {
         }
     }
 }
-//@Reducer
-//struct WeeklyUIFeature {
-//    struct State: Equatable {
-//
-//    }
-//
-//    enum Action: BindableAction, Equatable {
-//        case binding(BindingAction<State>)
-//        case showTapped
-//    }
-//
-//    var body: some ReducerOf<Self> {
-//        BindingReducer()
-//
-//        Reduce { state, action in
-//            switch action {
-//            case .binding(_):
-//                return .none
-//            case .showTapped:
-//                return .none
-//            }
-//        }
-//    }
-//}
 
 //#Preview {
 //    WeeklyUI(store: Store(initialState: HomeFeature.State(), reducer: { HomeFeature() }))

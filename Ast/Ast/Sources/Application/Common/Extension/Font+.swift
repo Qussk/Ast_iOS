@@ -41,7 +41,24 @@ extension Font {
     static var h8: Font {
         return regular(size: 14)
     }
+
+    static var h9: Font {
+        return bold(size: 12)
+    }
+
     
+    static var l1: Font {
+        return light(size: 12)
+    }
+    
+    static var l2: Font {
+        return light(size: 14)
+    }
+
+    static var l3: Font {
+        return light(size: 16)
+    }
+
     static var tiny1: Font {
         return regular(size: 10)
     }
