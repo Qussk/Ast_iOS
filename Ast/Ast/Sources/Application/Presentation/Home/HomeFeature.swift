@@ -65,14 +65,13 @@ struct HomeFeature {
 
     
     struct State: Equatable {
-//        @PresentationState var dailyPopup: DonationPopupUIFeature.State?
         var dailyPopup = DonationPopupUIFeature.State()
         var isLandscape = UIDevice.current.orientation.isLandscape //가로 : true, 세로 : false
         var selectedTab: LeadType = .daily
         var leadDays: [LeadDaily] = []
         var isLike:Bool = false
         var isLikeImagenamed:String = "heart"
-//        var topProxy0 = HomeTopProxy0Feature.State()
+        var toAllMenu = AllMenuUIFeature.State()
         
         //주간
         let currentMonthlydate = Date()
@@ -87,6 +86,7 @@ struct HomeFeature {
         case selectTab(LeadType)
         case toInfomationTapped
         case toAllMenuTapped
+        case toAllMenu(AllMenuUIFeature.Action)
         case setDailyLead
         case orientationChanged(Bool)
         case toLikeTapped
@@ -100,9 +100,10 @@ struct HomeFeature {
     
     var body: some ReducerOf<Self> {
         BindingReducer()
-//        Scope(state: \.dailyPopup, action: /Action.dailyPopup) {
-//            DonationPopupUIFeature()
-//        }
+        Scope(state: \.toAllMenu, action: /Action.toAllMenu) {
+            AllMenuUIFeature()
+        }
+
         Reduce {
             state,
             action in
@@ -119,6 +120,11 @@ struct HomeFeature {
                 return .none
             case .toAllMenuTapped:
                 print("전체메뉴")
+                return .run { send in
+                    await send(.toAllMenu(.viewAppeared))
+                }
+            case .toAllMenu(_):
+                state.toAllMenu = AllMenuUIFeature.State()
                 return .none
             case .setDailyLead:
                 let mock: [LeadDaily] = [
@@ -162,6 +168,8 @@ struct HomeFeature {
                 return .none
             case .orientationChanged(let isLandscape):
                 state.isLandscape = isLandscape
+                return .none
+            default:
                 return .none
             }
         }

@@ -50,6 +50,7 @@ struct HomeUI: View {
 
 fileprivate struct HomeTopUI: View {
     let store: StoreOf<HomeFeature> = Store(initialState: HomeFeature.State()) { HomeFeature() }
+    @State private var isPresent = false
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             ZStack(alignment: .bottomTrailing) {
@@ -59,6 +60,8 @@ fileprivate struct HomeTopUI: View {
                     Spacer()
                     Button {
                         viewStore.send(.toInfomationTapped)
+                        self.isPresent = true
+
                     } label: {
                         Image(systemName: "info.circle")
                             .resizable()
@@ -68,6 +71,7 @@ fileprivate struct HomeTopUI: View {
 
                     Button {
                         viewStore.send(.toAllMenuTapped)
+
                     } label: {
                         Image("menu_icon")
                     }
@@ -78,6 +82,9 @@ fileprivate struct HomeTopUI: View {
             .frame(height: viewStore.isLandscape ? 44 : 96)
             .padding(.bottom, 0)
             .cornerRadius(15, corners: [.bottomLeft, .bottomRight])
+            .fullScreenCover(isPresented: $isPresent) {
+                InfomationUI()
+            }
         }
     }
 }
