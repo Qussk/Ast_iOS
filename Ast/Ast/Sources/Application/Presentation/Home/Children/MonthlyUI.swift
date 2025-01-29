@@ -21,7 +21,7 @@ struct MonthlyUI: View {
                 }
                 .padding(.vertical, 10)
             }
-            .background(Color(UIColor.systemGroupedBackground))
+            .background(Color.bg1)
         }
     }
 }

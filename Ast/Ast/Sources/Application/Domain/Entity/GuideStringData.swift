@@ -168,6 +168,6 @@ struct Guide {
      )]
    
     //하우스
-    static let house: [GuideStringData] = [GuideStringData(idx: <#T##Int#>, title: <#T##String#>, contents: <#T##[Contents]#>)]
+  //  static let house: [GuideStringData] = [GuideStringData(idx: <#T##Int#>, title: <#T##String#>, contents: <#T##[Contents]#>)]
 }
 

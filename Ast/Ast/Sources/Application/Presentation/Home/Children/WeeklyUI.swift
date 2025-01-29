@@ -18,7 +18,7 @@ struct WeeklyUI: View {
                 WeeklyShowUI(store: store).isHidden(!viewStore.isShowWeekly)
             }
             .scrollIndicators(.hidden)
-            .background(viewStore.isShowWeekly ? .white : Color(UIColor.systemGroupedBackground))
+            .background(viewStore.isShowWeekly ? .white : .bg1)
         }
     }
 }
@@ -40,7 +40,7 @@ struct EmptyWeeklyUI: View {
                 
                 ZStack {
                     Rectangle()
-                        .fill(Color.white)
+                        .fill(Color.bg2)
                         .cornerRadius(20)
                     VStack(alignment: .leading) {
                         Text("어떤 것을 알 수 있나요?")

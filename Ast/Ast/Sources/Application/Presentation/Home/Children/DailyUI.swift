@@ -31,7 +31,7 @@ struct DailyUI: View {
                 }
             }
             .scrollIndicators(.hidden)
-            .background(Color(UIColor.systemGroupedBackground))
+            .background(Color(.w2))
         }
     }
 }
@@ -45,7 +45,7 @@ struct DailyItemUI: View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             ZStack(alignment: .leading) {
                 Rectangle()
-                    .fill(Color.white)
+                    .fill(Color.w1)
                     .cornerRadius(25)
                     .shadow(color: Color.black.opacity(0.2), radius: 8, x: 0, y: 4)
 
@@ -161,6 +161,7 @@ struct DailyItemLikeUI: View {
                 }
                 Button {
                     viewStore.send(.toLikeTapped)
+                    viewStore.send(.dailySelectionPopup)
                 } label: {
                     Image(systemName: viewStore.isLikeImagenamed)
                         .frame(width: 22, height: 22)

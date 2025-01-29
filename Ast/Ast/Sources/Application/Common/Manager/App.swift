@@ -11,6 +11,7 @@ import UIKit
 final class App {
     static let shared = App()
 
+    public var darkMode = UITraitCollection.current.userInterfaceStyle
     private var deviceModelName: String = ""
     @Published private(set) var leadType: LeadType = .daily
     @Published private(set) var mainMenuToggle: Void = Void()
