@@ -85,9 +85,6 @@ struct CommonPopupUI: View {
             .onTapGesture {
                 viewStore.send(.confirm)
             }
-            .onAppear {
-                
-            }
         }
     }
 }

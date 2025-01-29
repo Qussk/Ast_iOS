@@ -104,7 +104,7 @@ struct DailyItemUI: View {
                         
                         Text("행운의 자음 : ")
                             .fontColor(.h6, color: .b1)
-                        Text(item.luckyFood)
+                        Text(item.luckyWord)
                             .fontColor(.h7, color: .b1)
                     }
                     .padding(.top, -4)

@@ -43,15 +43,15 @@ struct HomeFeature {
     struct LeadWeakly: Equatable, Hashable {
         let idx: Int
         let title: String
-        let acticle: [Weak]
+        let acticle: [Acticle]
         
-        init(idx: Int, title: String, acticle: [Weak]) {
+        init(idx: Int, title: String, acticle: [Acticle]) {
             self.idx = idx
             self.title = title
             self.acticle = acticle
         }
     }
-    struct Weak: Equatable, Hashable {
+    struct Acticle: Equatable, Hashable {
         let subTitle: String
         let contents: [String]
         let subContents: [String]
@@ -144,7 +144,7 @@ struct HomeFeature {
                 state.dailyPopup = CommonPopupUIFeature.State(
                     titleText: "운세가 너무 찰떡이에요!",
                     subText: "후덜덜..혹시 저 보고 계세요..?",
-                    imageName: "donation",
+                    imageName: "money",
                     bottomText: "복채를 내고 운세 캘린더를 경험해 보세요!",
                     confirmText: "광고보고 복채 내기(💰+2 획득)",
                     cancelText: "괜찮아요"
@@ -168,9 +168,9 @@ struct HomeFeature {
                     LeadWeakly(
                         idx: 0,
                         title: "2025년 2월 2주차 (2월 1일 ~ 2월 7일)",
-                        acticle: [Weak(subTitle: "주요 행성 이동", contents: ["수성(Mercury): 염소자리 -> 물병자리 (2월1일)", "금성(Venus): 물고기자리 유지"], subContents: ["사고방식과 의사소통이 실용적이고 신중한 태도에서 혁신적이고 독창적인 방향으로 전환됩니다.","감수성과 낭만적인 에너지가 강하게 작용하며, 사랑과 관계에서 헌신적인 태도가 돋보입니다."]),
-                                  Weak(subTitle: "에너지 흐름", contents: ["물병자리 태양과 수성이 함께 작용하며, 새로운 아이디어와 사회적 연결에 대한 관심이 높아집니다. 팀워크와 협업이 강조되는 시기입니다.", "금성이 물고기자리에 머물러 있어 정서적 유대가 깊어지며, 예술적 표현과 창의적 작업이 활발해집니다."], subContents: []),
-                                  Weak(subTitle: "전반적인 영향", contents: ["사랑과 관계: 따뜻하고 헌신적인 태도가 중요합니다. 감정을 표현하기 좋은 시기입니다.","직업과 학업: 창의적인 아이디어가 떠오르기 쉬운 주간으로, 협업 프로젝트나 새로운 접근 방식을 시도하기 적절합니다."], subContents: [])
+                        acticle: [Acticle(subTitle: "주요 행성 이동", contents: ["수성(Mercury): 염소자리 -> 물병자리 (2월1일)", "금성(Venus): 물고기자리 유지"], subContents: ["사고방식과 의사소통이 실용적이고 신중한 태도에서 혁신적이고 독창적인 방향으로 전환됩니다.","감수성과 낭만적인 에너지가 강하게 작용하며, 사랑과 관계에서 헌신적인 태도가 돋보입니다."]),
+                                  Acticle(subTitle: "에너지 흐름", contents: ["물병자리 태양과 수성이 함께 작용하며, 새로운 아이디어와 사회적 연결에 대한 관심이 높아집니다. 팀워크와 협업이 강조되는 시기입니다.", "금성이 물고기자리에 머물러 있어 정서적 유대가 깊어지며, 예술적 표현과 창의적 작업이 활발해집니다."], subContents: []),
+                                  Acticle(subTitle: "전반적인 영향", contents: ["사랑과 관계: 따뜻하고 헌신적인 태도가 중요합니다. 감정을 표현하기 좋은 시기입니다.","직업과 학업: 창의적인 아이디어가 떠오르기 쉬운 주간으로, 협업 프로젝트나 새로운 접근 방식을 시도하기 적절합니다."], subContents: [])
                                  ]
                     )
                 state.leadWeaks = mock
