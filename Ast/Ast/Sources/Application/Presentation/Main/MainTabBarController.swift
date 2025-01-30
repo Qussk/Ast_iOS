@@ -54,9 +54,8 @@ private extension MainTabBarController {
         
         selectedIndex = 0
         delegate = self
-        tabBar.barTintColor = .white
-        tabBar.backgroundColor = App.shared.darkMode == .dark ? UIColor(named: "b6") : .white
-        tabBar.tintColor = .black
+        tabBar.backgroundColor = .tab
+        tabBar.tintColor = .b1
         tabBar.unselectedItemTintColor = UIColor(named: "b2")
         
         let nc1 = createNavigationController(rootViewController: UIHostingController(rootView: HomeUI()))

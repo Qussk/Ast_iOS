@@ -21,7 +21,7 @@ struct CommonPopupUI: View {
                 
                 VStack(alignment: .leading, spacing: 0) {
                     Text(viewStore.titleText)
-                        .fontColor(.h2, color: .b1)
+                        .fontColor(.h2, color: .black)
                         .lineLimit(nil)
                         .multilineTextAlignment(.leading)
                         .padding(.horizontal, 24)
