@@ -66,5 +66,5 @@ struct NavigationBarView: View {
     NavigationBarView(title: "navigation title") {
         
     }
-        .background(Color.red.opacity(0.2))
+    .background(Color.red.opacity(0.2))
 }
