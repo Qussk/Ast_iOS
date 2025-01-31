@@ -83,7 +83,7 @@ struct HomeFeature {
         case viewAppeared
         case binding(BindingAction<State>)
         case selectTab(LeadType)
-        case toInfomationTapped
+        case toGuideTapped
         case toAllMenuTapped
         case toMenu(PresentationAction<AllMenuUIFeature.Action>)
         case setDailyLead
@@ -111,7 +111,7 @@ struct HomeFeature {
             case .selectTab(let tab):
                 state.selectedTab = tab
                 return .none
-            case .toInfomationTapped:
+            case .toGuideTapped:
                 print("안내")
                 return .none
             case .toAllMenuTapped:

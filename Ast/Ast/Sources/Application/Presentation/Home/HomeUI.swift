@@ -59,7 +59,7 @@ fileprivate struct HomeTopUI: View {
                 HStack(spacing: 12) {
                     Spacer()
                     Button {
-                        viewStore.send(.toInfomationTapped)
+                        viewStore.send(.toGuideTapped)
                         self.isPresent = true
 
                     } label: {
@@ -83,7 +83,7 @@ fileprivate struct HomeTopUI: View {
             .padding(.bottom, 0)
             .cornerRadius(15, corners: [.bottomLeft, .bottomRight])
             .fullScreenCover(isPresented: $isPresent) {
-                InfomationUI()
+                GuideUI()
             }
         }
     }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InfomationUI: View {
+struct GuideUI: View {
 
     @Environment(\.dismiss) private var dismiss
     var body: some View {
@@ -18,7 +18,7 @@ struct InfomationUI: View {
                     dismiss()
                 }
                 
-                Text("Hello, InfomationUI!")
+                Text("Hello, GuideUI!")
                 Spacer()
             }
         }
@@ -27,5 +27,5 @@ struct InfomationUI: View {
 }
 
 #Preview {
-    InfomationUI()
+    GuideUI()
 }
