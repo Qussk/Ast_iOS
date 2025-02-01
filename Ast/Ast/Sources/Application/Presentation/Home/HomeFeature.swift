@@ -112,10 +112,8 @@ struct HomeFeature {
                 state.selectedTab = tab
                 return .none
             case .toGuideTapped:
-                print("안내")
                 return .none
             case .toAllMenuTapped:
-                print("전체메뉴")
                 return .none
             case .toMenu:
                 state.toMenu = AllMenuUIFeature.State()

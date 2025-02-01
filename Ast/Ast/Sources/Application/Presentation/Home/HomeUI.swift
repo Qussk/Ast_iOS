@@ -50,6 +50,7 @@ struct HomeUI: View {
 
 fileprivate struct HomeTopUI: View {
     let store: StoreOf<HomeFeature> = Store(initialState: HomeFeature.State()) { HomeFeature() }
+    @State private var isMenuShow = false
     @State private var isPresent = false
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
@@ -71,7 +72,7 @@ fileprivate struct HomeTopUI: View {
 
                     Button {
                         viewStore.send(.toAllMenuTapped)
-
+                        self.isMenuShow = true
                     } label: {
                         Image("menu_icon")
                     }
@@ -84,6 +85,15 @@ fileprivate struct HomeTopUI: View {
             .cornerRadius(15, corners: [.bottomLeft, .bottomRight])
             .fullScreenCover(isPresented: $isPresent) {
                 GuideUI()
+            }
+            .background {
+                NavigationLink(isActive: $isMenuShow) {
+                    AllMenuUI()
+                    .navigationBarBackButtonHidden()
+                } label: {
+                    Spacer()
+                }
+                .hidden()
             }
         }
     }
