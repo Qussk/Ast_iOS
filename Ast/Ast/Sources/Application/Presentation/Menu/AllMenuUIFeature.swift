@@ -8,9 +8,13 @@
 import SwiftUI
 import ComposableArchitecture
 
+
+
 @Reducer
 struct AllMenuUIFeature {
+
     struct State: Equatable {
+//        var menuType: SystemType.MenuType
         var astroNm: String = "aries"
         var progress: CGFloat = 0.25
         var impartText = ImpartStringData.impartText.shuffled()

@@ -54,4 +54,8 @@ extension App {
         
         return deviceModelName
     }
+    
+    static var appVersion: String {
+        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+    }
 }

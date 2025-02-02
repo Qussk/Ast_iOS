@@ -25,7 +25,7 @@ struct MenuCreditUI: View {
                 }
             }
             .padding(.top, 10)
-            .padding(.horizontal, 24)
+            .padding(.horizontal, 20)
         }
     }
 }
