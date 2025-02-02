@@ -14,19 +14,11 @@ struct MenuListUI: View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack(spacing: 0) {
                 ForEach(SystemSetting.MenuType.allCases, id: \.self) { option in
-                    VStack {
-                        Spacer()
-                        HStack {
-                            Text(option.rawValue)
-                                .fontColor(.h5, color: .t1)
-                            Spacer()
-                        }
-                        .frame(height: 50)
-                        .padding(.horizontal, 18)
-                        
-                        Divider()
-                            .background(Color.b4.opacity(1))
-                            .padding(.horizontal, 18)
+                    MenuListItem(store: store,
+                                 option: option
+                                 )
+                    .onTapGesture {
+                        viewStore.send(.selectedMenu(option))
                     }
                 }
             }
@@ -34,6 +26,45 @@ struct MenuListUI: View {
     }
 }
 
-//#Preview {
-//    MenuListUI()
-//}
+
+struct MenuListItem: View {
+    let store: StoreOf<AllMenuUIFeature>
+    var option: SystemSetting.MenuType
+
+    @State private var isOn = false
+
+    var body: some View {
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            
+            VStack {
+                Spacer()
+                HStack {
+                    Text(option.rawValue)
+                        .fontColor(.h5, color: .t1)
+                    Spacer()
+                    
+                    
+                    Toggle(viewStore.darkModeText, isOn: $isOn)
+                        .frame(minWidth: 50, maxWidth: 100, alignment: .trailing)
+                        .fontColor(.h3, color: .b2)
+                        .toggleStyle(SwitchToggleStyle(tint: .c1))
+                        .scaleEffect(0.8)
+                        .isHidden(!(option == .darkMode))
+                        .onAppear {
+                            self.isOn = viewStore.isOn
+                        }
+                        .onChange(of: isOn) { toggle in
+                            viewStore.send(.darkModeToggle(toggle))
+                        }
+                    
+                }
+                .frame(height: 50)
+                .padding(.horizontal, 18)
+                
+                Divider()
+                    .background(Color.b4.opacity(1))
+                    .padding(.horizontal, 18)
+            }
+        }
+    }
+}

@@ -59,7 +59,7 @@ struct DailyItemUI: View {
                         Text(item.astroNm.getEmoji())
                             .font(.system(size: 24))
                         Spacer()
-                        Text("\(String(describing: item.rank.getTopRank()))")
+                        Text("\(String(describing: item.rank.getTopRank(default: false)))")
                             .font(.system(size: 24))
                             .multilineTextAlignment(.trailing)
                             .padding(.trailing, 16)

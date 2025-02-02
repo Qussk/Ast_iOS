@@ -108,7 +108,7 @@ struct MenuCreditRankItem: View {
                     .fontColor(.c1, color: .t1)
                     .padding(.top, 2)
                 HStack {
-                    Text("🏅")
+                    Text(rank.getTopRank(default: true))
                         .frame(width: 22,height: 22)
                     Text("\(rank)위")
                         .fontColor(.l2, color: .b1)

@@ -25,7 +25,8 @@ extension AppDelegate: UIApplicationDelegate {
         
         window = UIWindow()
         window?.backgroundColor = .black
-        
+        window?.overrideUserInterfaceStyle = UserDefaults.isDark ? .dark : .light
+
         resetRootViewController(rootVc: UIHostingController(rootView: SplashUI()))
 
         return true

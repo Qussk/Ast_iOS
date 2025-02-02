@@ -20,9 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        window = UIWindow(windowScene: windowScene)
 //        window?.backgroundColor = .white
 //        window?.rootViewController = UIHostingController(rootView: SplashUI())
-//        window?.makeKeyAndVisible()
-
-        
+//        window?.makeKeyAndVisible()        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
