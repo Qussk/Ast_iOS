@@ -28,7 +28,7 @@ extension Provider {
     func request<E: Decodable>(_ target: T, entityType: E.Type, completion: @escaping (Result<E, APIError>) -> Void) {
         printRequestDescription(target: target)
         guard NetworkMonitor.shared.isNetworkAvailable() else {
-            print("인터넷 연결 없음.")
+            completion(.failure(.unconnect))
             return
         }
         moyaProvider.request(target) { result in

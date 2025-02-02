@@ -1,5 +1,5 @@
 //
-//  DonationAlertUI.swift
+//  CommonPopupUI.swift
 //  Ast
 //
 //  Created by 변윤나 on 1/26/25.

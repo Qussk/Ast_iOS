@@ -17,6 +17,10 @@ extension String {
     func getEmoji() -> String {
         return AstroTyp(from: self)?.emoji ?? ""
     }
+    
+    func getSymbol() -> String {
+        return AstroTyp(from: self)?.symbol ?? ""
+    }
 }
 
 

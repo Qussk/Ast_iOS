@@ -46,6 +46,9 @@ extension Font {
         return bold(size: 12)
     }
 
+    static var h10: Font {
+        return medium(size: 16)
+    }
     
     static var l1: Font {
         return light(size: 12)
@@ -79,6 +82,10 @@ extension Font {
         return bold(size: 10)
     }
     
+    static var c3: Font {
+        return bold(size: 12)
+    }
+
     static var s1: Font {
         return bold(size: 24)
     }

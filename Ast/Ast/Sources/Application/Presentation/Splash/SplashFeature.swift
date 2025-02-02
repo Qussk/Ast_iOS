@@ -34,11 +34,11 @@ struct SplashFeature {
                 state.appDelegate = appDelegate
                 return .run { send in
                     await send(.goToMain)
-                    do {
-                        await send(.testFetch( try await self.testApi.fetch() ))
-                    } catch {
-                        print("\(APIError.unowned)")
-                    }
+//                    do {
+//                        await send(.testFetch( try await self.testApi.fetch() ))
+//                    } catch {
+//                        print("\(APIError.unowned)")
+//                    }
                 }
             case .goToMain:
                 guard let appDelegate = state.appDelegate else { return .none }

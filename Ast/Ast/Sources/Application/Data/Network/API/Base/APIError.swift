@@ -12,6 +12,7 @@ enum APIError: Error, Decodable {
     case unowned
     case parsingResponse(body: String?)
     case emptyResultData
+    case unconnect
     
     var description: String {
         switch self {

@@ -97,6 +97,36 @@ enum AstroTyp: String, CaseIterable {
             return "🐟"
         }
     }
+    
+    var symbol: String {
+        switch self {
+        case .aries:
+            return "♈️"
+        case .taurus:
+            return "♉️"
+        case .gemini:
+            return "♊️"
+        case .cancer:
+            return "♊️"
+        case .leo:
+            return "♌️"
+        case .virgo:
+            return "♍️"
+        case .libra:
+            return "♎️"
+        case .scorpio:
+            return "♏️"
+        case .sagittarius:
+            return "♐️"
+        case .capricorn:
+            return "♑️"
+        case .aquarius:
+            return "♒️"
+        case .pisces:
+            return "♓️"
+        }
+    }
+        
     init?(from string: String) {
         self.init(rawValue: string.lowercased())
     }
