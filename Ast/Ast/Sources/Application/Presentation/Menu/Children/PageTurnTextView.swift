@@ -36,7 +36,6 @@ struct PageTurnTextView: View {
                 .multilineTextAlignment(.leading)
         }
         .padding(.top, 20)
-        //.padding(.bottom, 10)
     }
 
     private func startPageTurnAnimation() {

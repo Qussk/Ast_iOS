@@ -39,6 +39,9 @@ struct MenuListItem: View {
             VStack {
                 Spacer()
                 HStack {
+                    Image(option.imageName)
+                        .resizable()
+                        .frame(width: 24, height: 24)
                     Text(option.rawValue)
                         .fontColor(.h5, color: .t1)
                     Spacer()
