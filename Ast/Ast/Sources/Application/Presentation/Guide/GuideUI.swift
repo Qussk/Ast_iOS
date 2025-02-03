@@ -13,11 +13,11 @@ struct GuideUI: View {
     
     @Environment(\.dismiss) private var dismiss
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
-            NavigationStack {
+        NavigationStack {
+            WithViewStore(self.store, observe: { $0 }) { viewStore in
                 VStack(alignment: .leading, spacing: 0) {
                     
-                    NavigationBarView(title: "💫 🔮 💫") {
+                    NavigationBarView(title: "💫 🔮 Guide 🔮💫") {
                         dismiss()
                     }
                     ScrollView {
@@ -43,7 +43,7 @@ struct GuideUI: View {
                                         
                                         if subContents == "..." {
                                             Button {
-                                                viewStore.send(.houseButtonTapeed)
+                                                viewStore.send(.houseButtonTapped)
                                             } label: {
                                                 HStack {
                                                     Spacer()
@@ -90,7 +90,7 @@ struct GuideUIFeature {
     
     enum Action: Equatable {
         case viewAppeared
-        case houseButtonTapeed
+        case houseButtonTapped
     }
     
     var body: some ReducerOf<Self> {
@@ -99,7 +99,7 @@ struct GuideUIFeature {
             case .viewAppeared :
                 // state.guide = Guide()
                 return .none
-            case .houseButtonTapeed :
+            case .houseButtonTapped :
                 return .none
             }
         }

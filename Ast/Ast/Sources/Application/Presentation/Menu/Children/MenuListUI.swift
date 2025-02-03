@@ -9,18 +9,65 @@ import SwiftUI
 import ComposableArchitecture
 
 struct MenuListUI: View {
+    enum NaviPath: Hashable {
+        case alarm
+        case themeColor
+        case darkMode
+        case terms
+        case review
+    }
+
     let store: StoreOf<AllMenuUIFeature>
+    
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack(spacing: 0) {
-                ForEach(SystemSetting.MenuType.allCases, id: \.self) { option in
-                    MenuListItem(store: store,
-                                 option: option
-                                 )
-                    .onTapGesture {
-                        viewStore.send(.selectedMenu(option))
-                    }
+                NavigationLink(destination: AlarmSettingUI()) {
+                    MenuListItem(
+                        store: store,
+                        image: SystemSetting.MenuType.alarm.imageName,
+                        title: SystemSetting.MenuType.alarm.rawValue,
+                        subTitle: "",
+                        value: "",
+                        toggle: false
+                    ).navigationBarBackButtonHidden()
                 }
+                
+                MenuListItem(
+                    store: store,
+                    image: SystemSetting.MenuType.themeColor.imageName,
+                    title: SystemSetting.MenuType.themeColor.rawValue,
+                    subTitle: "",
+                    value: "",
+                    toggle: false
+                ).navigationBarBackButtonHidden()
+
+                MenuListItem(
+                    store: store,
+                    image: SystemSetting.MenuType.darkMode.imageName,
+                    title: SystemSetting.MenuType.darkMode.rawValue,
+                    subTitle: "",
+                    value: "",
+                    toggle: true
+                ).navigationBarBackButtonHidden()
+
+                MenuListItem(
+                    store: store,
+                    image: SystemSetting.MenuType.terms.imageName,
+                    title: SystemSetting.MenuType.terms.rawValue,
+                    subTitle: "",
+                    value: "",
+                    toggle: false
+                ).navigationBarBackButtonHidden()
+
+                MenuListItem(
+                    store: store,
+                    image: SystemSetting.MenuType.review.imageName,
+                    title: SystemSetting.MenuType.review.rawValue,
+                    subTitle: "",
+                    value: "",
+                    toggle: false
+                ).navigationBarBackButtonHidden()
             }
         }
     }
@@ -29,37 +76,48 @@ struct MenuListUI: View {
 
 struct MenuListItem: View {
     let store: StoreOf<AllMenuUIFeature>
-    var option: SystemSetting.MenuType
-
+    var image: String
+    var title: String
+    var subTitle: String
+    var value: String
+    var toggle: Bool = false
+    
     @State private var isOn = false
-
+    
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             
             VStack {
                 Spacer()
                 HStack {
-                    Image(option.imageName)
+                    Image(image)
                         .resizable()
                         .frame(width: 24, height: 24)
-                    Text(option.rawValue)
-                        .fontColor(.h5, color: .t1)
+                    VStack {
+                        Text(title)
+                            .fontColor(.h5, color: .t1)
+                        Text(subTitle)
+                            .fontColor(.l1, color: .t1)
+                            .isHidden(subTitle.isEmpty)
+                    }
                     Spacer()
                     
-                    
-                    Toggle(viewStore.darkModeText, isOn: $isOn)
-                        .frame(minWidth: 50, maxWidth: 100, alignment: .trailing)
-                        .fontColor(.h3, color: .b2)
-                        .toggleStyle(SwitchToggleStyle(tint: .c1))
-                        .scaleEffect(0.8)
-                        .isHidden(!(option == .darkMode))
-                        .onAppear {
-                            self.isOn = viewStore.isOn
-                        }
-                        .onChange(of: isOn) { toggle in
-                            viewStore.send(.darkModeToggle(toggle))
-                        }
-                    
+                    HStack(spacing: 8) {
+                        Text(value)
+                            .fontColor(.h3, color: .b2)
+                            .isHidden(value.isEmpty)
+                            .padding(.trailing, 6)
+                        Toggle("", isOn: $isOn)
+                            .toggleStyle(SwitchToggleStyle(tint: .c1))
+                            .scaleEffect(0.8)
+                            .isHidden(!toggle)
+                            .onAppear {
+                                self.isOn = viewStore.isOn
+                            }
+                            .onChange(of: isOn) { toggle in
+                                viewStore.send(.darkModeToggle(toggle))
+                            }
+                    }
                 }
                 .frame(height: 50)
                 .padding(.horizontal, 18)

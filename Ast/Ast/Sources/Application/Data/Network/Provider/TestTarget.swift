@@ -28,15 +28,15 @@ extension TestTarget: TargetType {
     }
     
     var parameters: [String: Any]? {
-        var parameters = [String: Any]()
+        let parameters = [String: Any]()
         
         switch self {
-        case let .test:
+        case .test:
 //            parameters["limit"] = limit
 //            parameters["page"] = page
             return nil
         }
-        return parameters
+//        return parameters
     }
     
     var headers: [String: String]? {

@@ -78,7 +78,7 @@ struct MenuTopItem: View {
 }
 
 struct CircularGaugeView: View {
-    var progress: CGFloat // 0.0 ~ 1.0 (0% ~ 100%)
+    var progress: CGFloat
     
     var body: some View {
         ZStack {

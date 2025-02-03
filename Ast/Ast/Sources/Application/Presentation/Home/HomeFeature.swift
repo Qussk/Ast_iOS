@@ -70,6 +70,7 @@ struct HomeFeature {
         var leadDays: [LeadDaily] = []
         var isLike:Bool = false
         var isLikeImagenamed:String = "heart"
+        @PresentationState var toGuide: GuideUIFeature.State?
         @PresentationState var toMenu: AllMenuUIFeature.State?
         @PresentationState var dailyPopup: CommonPopupUIFeature.State?
 
@@ -85,6 +86,7 @@ struct HomeFeature {
         case selectTab(LeadType)
         case toGuideTapped
         case toAllMenuTapped
+        case toGuide(PresentationAction<GuideUIFeature.Action>)
         case toMenu(PresentationAction<AllMenuUIFeature.Action>)
         case setDailyLead
         case orientationChanged(Bool)
@@ -114,6 +116,9 @@ struct HomeFeature {
             case .toGuideTapped:
                 return .none
             case .toAllMenuTapped:
+                return .none
+            case .toGuide :
+                state.toGuide = GuideUIFeature.State()
                 return .none
             case .toMenu:
                 state.toMenu = AllMenuUIFeature.State()
@@ -179,6 +184,9 @@ struct HomeFeature {
             default:
                 return .none
             }
+        }
+        .ifLet(\.$toGuide, action: \.toGuide) {
+            GuideUIFeature()
         }
         .ifLet(\.$toMenu, action: \.toMenu) {
             AllMenuUIFeature()

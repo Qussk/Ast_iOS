@@ -13,6 +13,7 @@ import ComposableArchitecture
 @Reducer
 struct AllMenuUIFeature {
     struct State: Equatable {
+        var path = StackState<Path.State>()
         var astroNm: String = "aries"
         var progress: CGFloat = 0.25
         var impartText = ImpartStringData.impartText.shuffled()
@@ -50,6 +51,22 @@ struct AllMenuUIFeature {
                 state.darkModeText = toggle ? "Dark" : "Light"
                 ScreanThemeManager.shared.toggleTheme(toggle: !toggle)
                 return .none
+            }
+        }
+    }
+    
+    struct Path: Reducer {
+        enum State: Equatable {
+            case alarm(AlarmSettingUIFeature.State = .init())
+        }
+        
+        enum Action: Equatable {
+            case alarm(AlarmSettingUIFeature.Action)
+        }
+        
+        var body: some Reducer<State, Action> {
+            Scope(state: /State.alarm, action: /Action.alarm) {
+                AlarmSettingUIFeature()
             }
         }
     }

@@ -91,7 +91,7 @@ fileprivate struct HomeTopUI: View {
                     AllMenuUI()
                     .navigationBarBackButtonHidden()
                 } label: {
-                    Spacer()
+                    //Spacer()
                 }
                 .hidden()
             }
