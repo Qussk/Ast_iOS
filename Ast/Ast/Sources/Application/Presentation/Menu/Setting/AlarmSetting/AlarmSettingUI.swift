@@ -10,21 +10,36 @@ import ComposableArchitecture
 
 struct AlarmSettingUI: View {
     let store: StoreOf<AlarmSettingUIFeature> = Store(initialState: AlarmSettingUIFeature.State(), reducer: { AlarmSettingUIFeature() })
-
+    
     @Environment(\.dismiss) private var dismiss
-
+    
     var body: some View {
         NavigationStack {
-            VStack {
+            VStack(alignment: .leading, spacing: 0) {
                 NavigationBarView(title: "알림설정") {
                     dismiss()
                 }
-                Spacer()
+                SettingListItem(
+                    type: .alarm(0),
+                    image: "",
+                    title: "매일 알림",
+                    subTitle: "매일 정해진 시간에 운세 업데이트 알림을 받아요.",
+                    value: "",
+                    toggle: true
+                )
                 
+                SettingListItem(
+                    type: .alarm(1),
+                    image: "",
+                    title: "1위때만 알림",
+                    subTitle: "1위였을때만 알림을 받아요.",
+                    value: "",
+                    toggle: true
+                )
             }
-            .navigationBarBackButtonHidden()
-
+            Spacer()
         }
+        .navigationBarBackButtonHidden()
     }
 }
 

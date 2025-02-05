@@ -22,30 +22,41 @@ struct SettingListItem: View {
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            VStack {
+            VStack(alignment: .leading) {
                 Spacer()
-                HStack {
+                
+                HStack(spacing: 10) {
                     Image(image)
                         .resizable()
                         .frame(width: 24, height: 24)
-                    VStack {
+                        .isHidden(image.isEmpty)
+                    VStack(alignment: .leading, spacing: 0) {
                         Text(title)
                             .fontColor(.h5, color: .t1)
                         Text(subTitle)
                             .fontColor(.l1, color: .t1)
                             .isHidden(subTitle.isEmpty)
+                            .lineLimit(2)
+                            .multilineTextAlignment(.leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
+                    .layoutPriority(1)
+                    
                     Spacer()
                     
                     HStack(spacing: 8) {
                         Text(value)
                             .fontColor(.h3, color: .b2)
                             .isHidden(value.isEmpty)
-                            .padding(.trailing, 6)
+                            .frame(maxWidth: 50, alignment: .trailing)
+                        
                         Toggle("", isOn: $isOn)
                             .toggleStyle(SwitchToggleStyle(tint: .c1))
                             .scaleEffect(0.8)
                             .isHidden(!toggle)
+                            .frame(width: 40)
+                            .padding(.trailing, 20)
                             .onAppear {
                                 self.isOn = viewStore.isOn
                             }
@@ -54,13 +65,16 @@ struct SettingListItem: View {
                             }
                     }
                 }
-                .frame(height: 50)
+                .frame(minHeight: 50)
                 .padding(.horizontal, 18)
                 
                 Divider()
                     .background(Color.b4.opacity(1))
                     .padding(.horizontal, 18)
+                
+                Spacer()
             }
+            .frame(maxHeight: 70)
         }
     }
 }
@@ -68,9 +82,11 @@ struct SettingListItem: View {
 
 @Reducer
 struct SettingListItemFeature {
-    enum ListItemType {
+    enum ListItemType: Equatable {
         case allmenu
+        case alarm(Int)
     }
+    
     struct State: Equatable {
         var menuType: SystemSetting.MenuType = .alarm
         var isOn:Bool = false
@@ -88,10 +104,13 @@ struct SettingListItemFeature {
 
                 return .none
             case let .toggleAction(type, toggle):
+                print(type, toggle)
                 switch type {
                 case .allmenu:
                     UserDefaults.isDark = toggle
                     ScreanThemeManager.shared.toggleTheme(toggle: !toggle)
+                case let .alarm(index) :
+                    break
                 }
                 return .none
             }
