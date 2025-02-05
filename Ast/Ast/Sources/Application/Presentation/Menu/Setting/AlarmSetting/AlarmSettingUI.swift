@@ -20,7 +20,7 @@ struct AlarmSettingUI: View {
                     dismiss()
                 }
                 SettingListItem(
-                    type: .alarm(0),
+                    type: .alarm(.today),
                     image: "",
                     title: "매일 알림",
                     subTitle: "매일 정해진 시간에 운세 업데이트 알림을 받아요.",
@@ -29,7 +29,7 @@ struct AlarmSettingUI: View {
                 )
                 
                 SettingListItem(
-                    type: .alarm(1),
+                    type: .alarm(.rank),
                     image: "",
                     title: "1위때만 알림",
                     subTitle: "1위였을때만 알림을 받아요.",

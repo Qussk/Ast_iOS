@@ -85,7 +85,12 @@ struct SettingListItem: View {
 struct SettingListItemFeature {
     enum ListItemType: Equatable {
         case allmenu
-        case alarm(Int)
+        case alarm(alarmType)
+    }
+
+    enum alarmType {
+        case today
+        case rank
     }
     
     struct State: Equatable {
@@ -105,11 +110,11 @@ struct SettingListItemFeature {
                 switch type {
                 case .allmenu:
                     state.isOn = UserDefaults.isDark ? true : false
-                case let .alarm(index):
-                    if index == 0 {
+                case let .alarm(alarmType):
+                    if alarmType == .today {
                         state.isOn = UserDefaults.isTodayAlarm ? true : false
                     }
-                    if index == 1 {
+                    if alarmType == .rank {
                         state.isOn = UserDefaults.isRankAlarm ? true : false
                     }
                 }
@@ -121,11 +126,11 @@ struct SettingListItemFeature {
                 case .allmenu:
                     UserDefaults.isDark = toggle
                     ScreanThemeManager.shared.toggleTheme(toggle: !toggle)
-                case let .alarm(index) :
-                    if index == 0 {
+                case let .alarm(alarmType) :
+                    if alarmType == .today {
                         UserDefaults.isTodayAlarm = toggle
                     }
-                    if index == 1 {
+                    if alarmType == .rank {
                         UserDefaults.isRankAlarm = toggle
                     }
                 }
