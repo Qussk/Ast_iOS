@@ -12,6 +12,13 @@ import Foundation
 extension UserDefaults {
     @UserDefaultsWrapper(key: "isDark", defaultValue: ScreanThemeManager.shared.isDarkMode)
     static var isDark: Bool
+    
+    @UserDefaultsWrapper(key: "isTodayAlarm", defaultValue: false)
+    static var isTodayAlarm: Bool
+
+    @UserDefaultsWrapper(key: "isRankAlarm", defaultValue: false)
+    static var isRankAlarm: Bool
+
 }
 
 // MARK: - UserDefaults Wrapper

@@ -58,6 +58,7 @@ struct SettingListItem: View {
                             .frame(width: 40)
                             .padding(.trailing, 20)
                             .onAppear {
+                                viewStore.send(.viewAppeared(type))
                                 self.isOn = viewStore.isOn
                             }
                             .onChange(of: isOn) { toggle in
@@ -91,16 +92,27 @@ struct SettingListItemFeature {
         var menuType: SystemSetting.MenuType = .alarm
         var isOn:Bool = false
     }
+
     enum Action: Equatable {
-        case viewAppeared
+        case viewAppeared(ListItemType)
         case toggleAction(ListItemType, Bool)
         
     }
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .viewAppeared:
-                state.isOn = UserDefaults.isDark ? true : false
+            case .viewAppeared(let type):
+                switch type {
+                case .allmenu:
+                    state.isOn = UserDefaults.isDark ? true : false
+                case let .alarm(index):
+                    if index == 0 {
+                        state.isOn = UserDefaults.isTodayAlarm ? true : false
+                    }
+                    if index == 1 {
+                        state.isOn = UserDefaults.isRankAlarm ? true : false
+                    }
+                }
 
                 return .none
             case let .toggleAction(type, toggle):
@@ -110,7 +122,12 @@ struct SettingListItemFeature {
                     UserDefaults.isDark = toggle
                     ScreanThemeManager.shared.toggleTheme(toggle: !toggle)
                 case let .alarm(index) :
-                    break
+                    if index == 0 {
+                        UserDefaults.isTodayAlarm = toggle
+                    }
+                    if index == 1 {
+                        UserDefaults.isRankAlarm = toggle
+                    }
                 }
                 return .none
             }
