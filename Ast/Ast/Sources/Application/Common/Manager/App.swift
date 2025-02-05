@@ -31,6 +31,7 @@ extension App {
     func toReportScreen() {
         goCalendarToggle = Void()
     }
+    
 }
 
 extension App {

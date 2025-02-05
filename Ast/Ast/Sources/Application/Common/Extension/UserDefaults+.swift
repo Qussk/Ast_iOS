@@ -13,11 +13,17 @@ extension UserDefaults {
     @UserDefaultsWrapper(key: "isDark", defaultValue: ScreanThemeManager.shared.isDarkMode)
     static var isDark: Bool
     
+    @UserDefaultsWrapper(key: "isPush", defaultValue: false)
+    static var isPush: Bool
+
     @UserDefaultsWrapper(key: "isTodayAlarm", defaultValue: false)
     static var isTodayAlarm: Bool
+    
+    @UserDefaultsWrapper(key: "alarmHour", defaultValue: 15)
+    static var alarmHour: Int
 
-    @UserDefaultsWrapper(key: "isRankAlarm", defaultValue: false)
-    static var isRankAlarm: Bool
+    @UserDefaultsWrapper(key: "alarmMinute", defaultValue: 52)
+    static var alarmMinute: Int
 
 }
 

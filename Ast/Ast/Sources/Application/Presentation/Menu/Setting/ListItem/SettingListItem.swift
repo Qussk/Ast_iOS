@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 import ComposableArchitecture
 
 
@@ -17,9 +18,8 @@ struct SettingListItem: View {
     var subTitle: String
     var value: String
     var toggle: Bool = false
-    
     @State private var isOn = false
-    
+
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack(alignment: .leading) {
@@ -62,6 +62,19 @@ struct SettingListItem: View {
                                 self.isOn = viewStore.isOn
                             }
                             .onChange(of: isOn) { toggle in
+                                if type == .alarm(.today) {
+                                    viewStore.send(.checkNotificationPermission)
+                                }
+                                
+                                //알람설정
+                                guard !(type == .alarm(.today)
+                                        && toggle
+                                        && !viewStore.isPush) else {
+                                    openNotificationSettings()
+                                    self.isOn = false
+                                    return
+                                }
+
                                 viewStore.send(.toggleAction(type, toggle))
                             }
                     }
@@ -78,31 +91,42 @@ struct SettingListItem: View {
             .frame(maxHeight: 70)
         }
     }
+    
+    //설정 이동
+    func openNotificationSettings() {
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = scene.windows.first,
+           let rootViewController = window.rootViewController {
+            LocalNotificationHelper.shared.checkAndRequestNotificationPermission(from: rootViewController)
+        }
+    }
 }
-
 
 @Reducer
 struct SettingListItemFeature {
     enum ListItemType: Equatable {
         case allmenu
-        case alarm(alarmType)
+        case alarm(alarmType?)
     }
 
     enum alarmType {
         case today
-        case rank
+//        case rank
     }
     
     struct State: Equatable {
         var menuType: SystemSetting.MenuType = .alarm
-        var isOn:Bool = false
+        var isOn: Bool = false
+        var isPush: Bool = UserDefaults.isPush
     }
 
     enum Action: Equatable {
         case viewAppeared(ListItemType)
         case toggleAction(ListItemType, Bool)
-        
+        case checkNotificationPermission //푸시권한 체크
+        case pushUpdate(Bool)
     }
+
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
@@ -114,26 +138,33 @@ struct SettingListItemFeature {
                     if alarmType == .today {
                         state.isOn = UserDefaults.isTodayAlarm ? true : false
                     }
-                    if alarmType == .rank {
-                        state.isOn = UserDefaults.isRankAlarm ? true : false
-                    }
                 }
-
                 return .none
             case let .toggleAction(type, toggle):
-                print(type, toggle)
                 switch type {
                 case .allmenu:
                     UserDefaults.isDark = toggle
                     ScreanThemeManager.shared.toggleTheme(toggle: !toggle)
                 case let .alarm(alarmType) :
+                    guard state.isPush else {
+                        state.isOn = false
+                        UserDefaults.isTodayAlarm = false
+                        return .none
+                    }
+
                     if alarmType == .today {
                         UserDefaults.isTodayAlarm = toggle
                     }
-                    if alarmType == .rank {
-                        UserDefaults.isRankAlarm = toggle
-                    }
                 }
+                return .none
+            case .checkNotificationPermission :
+                return .run { send in
+                    let isPermissionGranted = await LocalNotificationHelper.shared.checkNotificationPermission()
+                    await send(.pushUpdate(isPermissionGranted))
+                }
+            case .pushUpdate(let set):
+                UserDefaults.isPush = set
+                state.isPush = set
                 return .none
             }
         }

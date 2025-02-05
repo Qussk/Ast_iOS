@@ -28,14 +28,14 @@ struct AlarmSettingUI: View {
                     toggle: true
                 )
                 
-                SettingListItem(
-                    type: .alarm(.rank),
-                    image: "",
-                    title: "1위때만 알림",
-                    subTitle: "1위였을때만 알림을 받아요.",
-                    value: "",
-                    toggle: true
-                )
+//                SettingListItem(
+//                    type: .alarm(.rank),
+//                    image: "",
+//                    title: "1위때만 알림",
+//                    subTitle: "1위였을때만 알림을 받아요.",
+//                    value: "",
+//                    toggle: true
+//                )
             }
             Spacer()
         }
