@@ -88,9 +88,11 @@ struct SettingListItemFeature {
 
                 return .none
             case let .toggleAction(type, toggle):
-                UserDefaults.isDark = toggle
-                ScreanThemeManager.shared.toggleTheme(toggle: !toggle)
-                print(type, toggle)
+                switch type {
+                case .allmenu:
+                    UserDefaults.isDark = toggle
+                    ScreanThemeManager.shared.toggleTheme(toggle: !toggle)
+                }
                 return .none
             }
         }
