@@ -19,22 +19,18 @@ struct AllMenuUIFeature {
         var impartText = ImpartStringData.impartText.shuffled()
         var amount: Int = 1
         var rank: Int = 4
-        var darkModeText:String = ScreanThemeManager.shared.toDarkMode
-        var isOn:Bool = false
     }
     
     enum Action: Equatable {
         case viewAppeared
+        case path(StackAction<Path.State, Path.Action>)
         case selectedMenu(SystemSetting.MenuType)
-        case darkModeToggle(Bool)
     }
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .viewAppeared:
-                state.isOn = UserDefaults.isDark ? true : false
-                state.darkModeText = UserDefaults.isDark ? "Dark" : "Light"
                 return .none
             case .selectedMenu(let option):
 //                print(option)
@@ -46,14 +42,15 @@ struct AllMenuUIFeature {
                     break
                 }
                 return .none
-            case .darkModeToggle(let toggle):
-                UserDefaults.isDark = toggle
-                state.darkModeText = toggle ? "Dark" : "Light"
-                ScreanThemeManager.shared.toggleTheme(toggle: !toggle)
+            case let .path(action):
                 return .none
             }
         }
+        .forEach(\.path, action: /Action.path) {
+            Path()
+        }
     }
+    
     
     struct Path: Reducer {
         enum State: Equatable {

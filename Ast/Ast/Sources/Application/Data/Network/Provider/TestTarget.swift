@@ -36,7 +36,7 @@ extension TestTarget: TargetType {
 //            parameters["page"] = page
             return nil
         }
-//        return parameters
+        return parameters
     }
     
     var headers: [String: String]? {

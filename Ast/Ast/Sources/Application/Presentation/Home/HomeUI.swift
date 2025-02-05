@@ -23,7 +23,6 @@ struct HomeUI: View {
                         switch viewStore.selectedTab {
                         case .daily:
                             DailyUI(store: store)
-//                            DailyUI(store: store.scope(state: \.topProxy0, action: { .topProxy0($0) }))
                         case .weekly:
                             WeeklyUI(store: store)
                         case .monthly:
@@ -91,7 +90,7 @@ fileprivate struct HomeTopUI: View {
                     AllMenuUI()
                     .navigationBarBackButtonHidden()
                 } label: {
-                    //Spacer()
+                    Spacer()
                 }
                 .hidden()
             }

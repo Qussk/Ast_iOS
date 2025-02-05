@@ -10,7 +10,6 @@ import ComposableArchitecture
 
 struct AlarmSettingUI: View {
     let store: StoreOf<AlarmSettingUIFeature> = Store(initialState: AlarmSettingUIFeature.State(), reducer: { AlarmSettingUIFeature() })
-//    let store: StoreOf<AllMenuUIFeature>
 
     @Environment(\.dismiss) private var dismiss
 

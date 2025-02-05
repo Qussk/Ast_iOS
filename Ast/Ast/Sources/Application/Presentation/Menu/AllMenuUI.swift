@@ -12,7 +12,7 @@ struct AllMenuUI: View {
     let store: StoreOf<AllMenuUIFeature> = Store(initialState: AllMenuUIFeature.State(), reducer: { AllMenuUIFeature() })
     
     @Environment(\.dismiss) private var dismiss
-
+    
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             NavigationStack {
