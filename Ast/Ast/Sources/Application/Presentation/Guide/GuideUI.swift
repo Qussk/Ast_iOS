@@ -43,7 +43,7 @@ struct GuideUI: View {
                                             .padding(.leading, 4)
                                             .padding(.vertical, -1)
                                         
-                                        if subContents == "..." {
+                                        if subContents.contains("12하우스") {
                                             Button {
                                                 self.isHouseShow = true
                                                 viewStore.send(.houseButtonTapped)
