@@ -11,15 +11,15 @@ import CryptoKit
 
 
 extension String {
-    //별자리이름 -> 한글명
+    ///별자리이름 -> 한글명
     func getNameDescription() -> String {
         return AstroTyp(from: self)?.description ?? ""
     }
-    //별자리이름 -> 이모지 변경
+    ///별자리이름 -> 이모지
     func getEmoji() -> String {
         return AstroTyp(from: self)?.emoji ?? ""
     }
-    
+    ///별자리 이름 -> 심볼
     func getSymbol() -> String {
         return AstroTyp(from: self)?.symbol ?? ""
     }
@@ -44,7 +44,6 @@ extension String {
     func replaceArrow() -> String {
         return self.replacingOccurrences(of: "->", with: "→")
     }
-
 }
 
 

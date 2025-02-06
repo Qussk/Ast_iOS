@@ -30,7 +30,7 @@ struct SettingListItem: View {
                         .resizable()
                         .frame(width: 24, height: 24)
                         .isHidden(image.isEmpty)
-                    VStack(alignment: .leading, spacing: 0) {
+                    VStack(alignment: .leading, spacing: 2) {
                         Text(title)
                             .fontColor(.h5, color: .t1)
                         Text(subTitle)
@@ -38,7 +38,7 @@ struct SettingListItem: View {
                             .isHidden(subTitle.isEmpty)
                             .lineLimit(2)
                             .multilineTextAlignment(.leading)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .frame(maxWidth: 205, alignment: .leading)
                             .fixedSize(horizontal: false, vertical: true)
                     }
                     .layoutPriority(1)
@@ -47,16 +47,16 @@ struct SettingListItem: View {
                     
                     HStack(spacing: 8) {
                         Text(value)
-                            .fontColor(.h3, color: .b2)
+                            .fontColor(.h5, color: .b2)
                             .isHidden(value.isEmpty)
-                            .frame(maxWidth: 50, alignment: .trailing)
+                            .frame(maxWidth: 70, alignment: .trailing)
                         
                         Toggle("", isOn: $isOn)
                             .toggleStyle(SwitchToggleStyle(tint: .c1))
                             .scaleEffect(0.8)
                             .isHidden(!toggle)
                             .frame(width: 40)
-                            .padding(.trailing, 20)
+                            .padding(.trailing, 12)
                             .onAppear {
                                 viewStore.send(.viewAppeared(type))
                                 self.isOn = viewStore.isOn
@@ -66,7 +66,7 @@ struct SettingListItem: View {
                                     viewStore.send(.checkNotificationPermission)
                                 }
                                 
-                                //알람설정
+                                //알림설정
                                 guard !(type == .alarm(.today)
                                         && toggle
                                         && !viewStore.isPush) else {
@@ -149,8 +149,7 @@ struct SettingListItemFeature {
                     guard state.isPush else {
                         state.isOn = false
                         UserDefaults.isTodayAlarm = false
-                        return .none
-                    }
+                        return .none }
 
                     if alarmType == .today {
                         UserDefaults.isTodayAlarm = toggle

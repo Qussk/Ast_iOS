@@ -21,4 +21,10 @@ extension Int {
     func toString() -> String {
         return String(describing: self)
     }
+
+    /// 숫자 두 자릿수로 포맷팅 9 -> 09
+    func formatTimeUnit() -> String {
+        return String(format: "%02d", self)
+    }
+
 }

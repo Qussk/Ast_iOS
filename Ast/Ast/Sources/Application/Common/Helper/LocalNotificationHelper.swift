@@ -80,8 +80,8 @@ class LocalNotificationHelper {
     ///매일 알림 설정 푸쉬
     func pushNotificationToday(hour: Int, minute: Int) {
         let content = UNMutableNotificationContent()
-        content.title = "두근두근 운세 도착"
-        content.body = "오늘 하루는 어떤 행운🏅이 왔는지 볼까요?😉"
+        content.title = "두근두근 운세 도착 👀"
+        content.body = "🏅오늘은 어떤 행운이 왔는지 볼까요?😉"
         content.sound = .default
         
         var dateComponents = DateComponents()

@@ -33,7 +33,7 @@ struct AllMenuUIFeature {
             case .viewAppeared:
                 return .none
             case .selectedMenu(let option):
-//                print(option)
+                print(option)
                 switch option {
                 case .alarm: break
                 case .themeColor: break

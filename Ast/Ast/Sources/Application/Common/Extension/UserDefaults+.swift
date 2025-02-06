@@ -19,10 +19,10 @@ extension UserDefaults {
     @UserDefaultsWrapper(key: "isTodayAlarm", defaultValue: false)
     static var isTodayAlarm: Bool
     
-    @UserDefaultsWrapper(key: "alarmHour", defaultValue: 15)
+    @UserDefaultsWrapper(key: "alarmHour", defaultValue: 13)
     static var alarmHour: Int
 
-    @UserDefaultsWrapper(key: "alarmMinute", defaultValue: 52)
+    @UserDefaultsWrapper(key: "alarmMinute", defaultValue: 10)
     static var alarmMinute: Int
 
 }

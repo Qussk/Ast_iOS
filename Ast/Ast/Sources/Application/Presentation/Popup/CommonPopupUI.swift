@@ -11,7 +11,6 @@ import ComposableArchitecture
 
 struct CommonPopupUI: View {
     let store: StoreOf<CommonPopupUIFeature>
-    @State private var isPressed = false
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
