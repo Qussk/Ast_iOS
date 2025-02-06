@@ -21,7 +21,7 @@ struct NavigationBarView: View {
         self.isUnderlineHidden = isUnderlineHidden
         self.action = action
     }
-    
+
     var body: some View {
         ZStack {
             if !title.isEmpty {
@@ -33,7 +33,7 @@ struct NavigationBarView: View {
                     
                     Spacer()
                 }
-                .frame(height: 60)
+                .frame(height: 48)
             }
             
             if !isUnderlineHidden {
@@ -44,7 +44,7 @@ struct NavigationBarView: View {
                         .fill(Color.b4)
                         .frame(height: 1)
                 }
-                .frame(height: 60)
+                .frame(height: 48)
             }
             
             HStack {

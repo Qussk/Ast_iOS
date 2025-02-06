@@ -10,11 +10,13 @@ import ComposableArchitecture
 
 struct GuideUI: View {
     let store: StoreOf<GuideUIFeature> = Store(initialState: GuideUIFeature.State()) { GuideUIFeature() }
+    @State var isHouseShow:Bool = false
     
     @Environment(\.dismiss) private var dismiss
     var body: some View {
-        NavigationStack {
-            WithViewStore(self.store, observe: { $0 }) { viewStore in
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            NavigationStack {
+                
                 VStack(alignment: .leading, spacing: 0) {
                     
                     NavigationBarView(title: "💫 🔮 Guide 🔮💫") {
@@ -43,6 +45,7 @@ struct GuideUI: View {
                                         
                                         if subContents == "..." {
                                             Button {
+                                                self.isHouseShow = true
                                                 viewStore.send(.houseButtonTapped)
                                             } label: {
                                                 HStack {
@@ -56,6 +59,7 @@ struct GuideUI: View {
                                                 .clipShape(RoundedRectangle(cornerRadius: 5))
                                                 .padding(.horizontal, 4)
                                             }
+                                            
                                             Spacer()
                                         }
                                     }
@@ -69,8 +73,9 @@ struct GuideUI: View {
                         Spacer()
                     }
                 }
-                .onAppear {
-                    viewStore.send(.viewAppeared)
+                .navigationDestination(isPresented: $isHouseShow) {
+                    HouseUI()
+                        .navigationBarBackButtonHidden(true)
                 }
             }
         }
@@ -85,20 +90,15 @@ struct GuideUI: View {
 @Reducer
 struct GuideUIFeature {
     struct State: Equatable {
-        //var guide: Guide?
     }
     
     enum Action: Equatable {
-        case viewAppeared
         case houseButtonTapped
     }
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .viewAppeared :
-                // state.guide = Guide()
-                return .none
             case .houseButtonTapped :
                 return .none
             }
