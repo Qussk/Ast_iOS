@@ -76,6 +76,7 @@ struct TimeSelectUI: View {
                                 .frame(width: 24, height: 24)
                             Text("닫기")
                                 .fontColor(.h3, color: .gray)
+                                .padding(.leading, -4)
                         }
                     }
                     .padding(.top, 0)

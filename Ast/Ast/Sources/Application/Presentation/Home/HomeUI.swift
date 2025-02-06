@@ -51,10 +51,12 @@ fileprivate struct HomeTopUI: View {
     let store: StoreOf<HomeFeature> = Store(initialState: HomeFeature.State()) { HomeFeature() }
     @State private var isMenuShow = false
     @State private var isPresent = false
+    @State private var topColor:Color = .orange
+    
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             ZStack(alignment: .bottomTrailing) {
-                Color.orange
+                topColor
                 
                 HStack(spacing: 12) {
                     Spacer()
@@ -84,6 +86,9 @@ fileprivate struct HomeTopUI: View {
             .cornerRadius(15, corners: [.bottomLeft, .bottomRight])
             .fullScreenCover(isPresented: $isPresent) {
                 GuideUI()
+            }
+            .onAppear {
+                topColor = Color.fromHex(hex: UserDefaults.myColor)
             }
             .background {
                 NavigationLink(isActive: $isMenuShow) {

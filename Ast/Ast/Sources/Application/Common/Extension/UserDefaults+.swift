@@ -5,8 +5,7 @@
 //  Created by 변윤나 on 2/2/25.
 //
 
-import Foundation
-
+import SwiftUI
 
 
 extension UserDefaults {
@@ -19,12 +18,14 @@ extension UserDefaults {
     @UserDefaultsWrapper(key: "isTodayAlarm", defaultValue: false)
     static var isTodayAlarm: Bool
     
-    @UserDefaultsWrapper(key: "alarmHour", defaultValue: 13)
+    @UserDefaultsWrapper(key: "alarmHour", defaultValue: 7)
     static var alarmHour: Int
 
-    @UserDefaultsWrapper(key: "alarmMinute", defaultValue: 10)
+    @UserDefaultsWrapper(key: "alarmMinute", defaultValue: 45)
     static var alarmMinute: Int
 
+    @UserDefaultsWrapper(key: "myColor", defaultValue: "#F19A37")
+    static var myColor: String
 }
 
 // MARK: - UserDefaults Wrapper

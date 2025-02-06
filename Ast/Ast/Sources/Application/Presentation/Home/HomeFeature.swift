@@ -7,6 +7,7 @@
 
 import Foundation
 import ComposableArchitecture
+import SwiftUI
 import UIKit
 
 @Reducer
@@ -65,6 +66,7 @@ struct HomeFeature {
 
     
     struct State: Equatable {
+        var topColor: Color = Color.fromHex(hex: UserDefaults.myColor)
         var isLandscape = UIDevice.current.orientation.isLandscape //가로 : true, 세로 : false
         var selectedTab: LeadType = .daily
         var leadDays: [LeadDaily] = []
@@ -109,6 +111,7 @@ struct HomeFeature {
             case .binding(_):
                 return .none
             case .viewAppeared:
+                state.topColor = Color.fromHex(hex: UserDefaults.myColor)
                 return .none
             case .selectTab(let tab):
                 state.selectedTab = tab

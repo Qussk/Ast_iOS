@@ -16,7 +16,7 @@ final class App {
     @Published private(set) var leadType: LeadType = .daily
     @Published private(set) var mainMenuToggle: Void = Void()
     @Published private(set) var goCalendarToggle: Void = Void()
-    
+    @Published private(set) var myColor:String = UserDefaults.myColor
     init() {
     }
 }
