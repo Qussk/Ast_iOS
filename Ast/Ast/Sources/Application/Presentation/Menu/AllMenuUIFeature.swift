@@ -24,6 +24,7 @@ struct AllMenuUIFeature {
         var isTheme:Bool = false
         var selectColor: SystemSetting.ColorType = .none
         @BindingState var hexText: String = ""
+        var isValid:Bool = false
     }
     
     enum Action: BindableAction, Equatable {
@@ -46,6 +47,10 @@ struct AllMenuUIFeature {
                 if let matchingColor = colorType(from: myColor) {
                     state.selectColor = matchingColor
                 }
+                else {
+                    state.hexText = myColor
+                    state.isValid = true
+                }
                 return .none
             case .selectedMenu(let option):
                 switch option {
@@ -57,11 +62,13 @@ struct AllMenuUIFeature {
             case .selectColor(let color):
                 state.selectColor = color
                 UserDefaults.myColor = color.colors.toHex()
-                print(UserDefaults.myColor)
                 return .none
             case .onChangeTextField(let text):
-                guard !isValid(hex: text) else { return .none }
-                print(text)
+                state.hexText = text
+                state.isValid = isValid(hex: text) ? true : false
+                if state.isValid {
+                    UserDefaults.myColor = text
+                }
                 return .none
             case let .path(action):
                 return .none
@@ -91,8 +98,8 @@ struct AllMenuUIFeature {
 
 extension AllMenuUIFeature {
     private func isValid(hex: String) -> Bool {
-        /// 정규 표현식 패턴: RRGGBB
-        let hexPattern = "^[A-Fa-f0-9]{6}$"
+        /// 정규 표현식 패턴: #RRGGBB
+        let hexPattern = "^#[A-Fa-f0-9]{6}$"
         let hexTest = NSPredicate(format: "SELF MATCHES %@", hexPattern)
         return hexTest.evaluate(with: hex)
     }

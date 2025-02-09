@@ -77,6 +77,7 @@ struct MenuListUI: View {
 
 struct ThemeSelectUI: View {
     let store: StoreOf<AllMenuUIFeature>
+    @State private var isValid: Bool?
     @FocusState private var isTextFieldFocused: Bool
 
     var body: some View {
@@ -103,23 +104,40 @@ struct ThemeSelectUI: View {
                     
                     
                     HStack(spacing: 8) {
-                        Text("Hex: #")
+                        Text("Hex: ")
                             .fontColor(.h4, color: .b1)
-                        TextField("예시: E9E9E9", text: viewStore.$hexText)
+                        TextField("예시: #E9E9E9", text: viewStore.$hexText)
                             .fontColor(.h5, color: .black)
+                            .focused($isTextFieldFocused)
+                            .textFieldStyle(.roundedBorder)
                             .onChange(of: viewStore.hexText) { text in
                                 if !text.isEmpty {
                                     viewStore.send(.onChangeTextField(text: text))
                                 }
+                                if text.count == 7 {
+                                    hideKeyboard()
+                                }
                             }
-                            .focused($isTextFieldFocused)
-                            .textFieldStyle(.roundedBorder)
+                            
                             .frame(height: 20)
                     }
                     .padding(.top, 10)
                     
+                    if !viewStore.isValid && viewStore.hexText != "" {
+                        Text("헥사코드가 아닙니다.")
+                            .fontColor(.tiny2, color: .c1)
+                            .padding(.leading, 10)
+                            .padding(.top, 4)
+                            .padding(.bottom, 10)
+                    }
                 }
                 .padding(.horizontal, 30)
+                .onTapGesture(perform: {
+                    hideKeyboard()
+                })
+//                .onAppear {
+//                    isTextFieldFocused = true
+//                }
             }
         }
     }

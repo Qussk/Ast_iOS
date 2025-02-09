@@ -150,7 +150,7 @@ struct HomeFeature {
                 state.dailyPopup = CommonPopupUIFeature.State(
                     titleText: "운세가 너무 찰떡이에요!",
                     subText: "후덜덜..혹시 저 보고 계세요..?",
-                    imageName: "money",
+                    imageName: "danation2",
                     bottomText: "복채를 내고 운세 캘린더를 경험해 보세요!",
                     confirmText: "광고보고 복채 내기(💰+2 획득)",
                     cancelText: "괜찮아요"
