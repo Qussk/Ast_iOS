@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct HouseUI: View {
-    
+    @State private var topColor:Color = .bg1
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         ZStack {
-            Color.bg1
+            topColor
                 .edgesIgnoringSafeArea(.all)
             
             VStack(spacing: 0) {
@@ -66,6 +66,9 @@ struct HouseUI: View {
                 }
                 .navigationBarBackButtonHidden()
             }
+        }
+        .onAppear {
+            topColor = Color.fromHex(hex: UserDefaults.myColor)
         }
     }
 }

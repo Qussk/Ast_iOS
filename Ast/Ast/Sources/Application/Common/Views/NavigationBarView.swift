@@ -10,6 +10,7 @@ import SwiftUI
 struct NavigationBarView: View {
     private let title: String
     private var isUnderlineHidden = true
+    private var isWhite: Bool = false
     private var action: () -> Void
     
     init(title: String, action: @escaping () -> Void) {
@@ -21,6 +22,12 @@ struct NavigationBarView: View {
         self.isUnderlineHidden = isUnderlineHidden
         self.action = action
     }
+    
+    init(title: String, isWhite: Bool, action: @escaping () -> Void) {
+        self.title = title
+        self.isWhite = isWhite
+        self.action = action
+    }
 
     var body: some View {
         ZStack {
@@ -29,7 +36,7 @@ struct NavigationBarView: View {
                     Spacer()
                     
                     Text(title)
-                        .fontColor(.h4, color: .b1)
+                        .fontColor(.h4, color: isWhite ? .white : .b1)
                     
                     Spacer()
                 }
@@ -52,7 +59,7 @@ struct NavigationBarView: View {
                     action()
                 } label: {
                     Image("ico_appbar_back")
-                        .tint(.b1)
+                        .tint(isWhite ? .white : .b1)
                 }
                 .padding(.leading, 18)
                 
