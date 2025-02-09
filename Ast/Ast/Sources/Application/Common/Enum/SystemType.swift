@@ -46,7 +46,7 @@ struct SystemSetting {
         var colors: Color {
             switch self {
             case .none:
-                return .clear
+                return Color.orange
             case .theme_c2:
                 return .c2
             case .theme_c3:
@@ -62,8 +62,23 @@ struct SystemSetting {
             }
         }
         
-        func tohexString(_ string: String) -> Color {
-            return colorFromHex(hex: string) ?? .clear
+        var hexCodes: String {
+            switch self {
+            case .none:
+                return "#F19A37"
+            case .theme_c2:
+                return "#827E93"
+            case .theme_c3:
+                return "#D0C7BE"
+            case .theme_c4:
+                return "#DC6C56"
+            case .theme_c5:
+                return "#E0C255"
+            case .theme_c6:
+                return "#2C3D50"
+            case .theme_c7:
+                return "#682566"
+            }
         }
     }
 }

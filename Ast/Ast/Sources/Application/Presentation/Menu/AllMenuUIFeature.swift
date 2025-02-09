@@ -42,6 +42,10 @@ struct AllMenuUIFeature {
             case .binding:
                 return .none
             case .viewAppeared:
+                let myColor = UserDefaults.myColor
+                if let matchingColor = colorType(from: myColor) {
+                    state.selectColor = matchingColor
+                }
                 return .none
             case .selectedMenu(let option):
                 switch option {
@@ -53,6 +57,7 @@ struct AllMenuUIFeature {
             case .selectColor(let color):
                 state.selectColor = color
                 UserDefaults.myColor = color.colors.toHex()
+                print(UserDefaults.myColor)
                 return .none
             case .onChangeTextField(let text):
                 guard !isValid(hex: text) else { return .none }
@@ -66,7 +71,6 @@ struct AllMenuUIFeature {
             Path()
         }
     }
-    
     
     struct Path: Reducer {
         enum State: Equatable {
@@ -87,10 +91,15 @@ struct AllMenuUIFeature {
 
 extension AllMenuUIFeature {
     private func isValid(hex: String) -> Bool {
-        // 정규 표현식 패턴: RRGGBB 또는 RRGGBBAA (해시(#) 없이)
-        let hexPattern = "^[A-Fa-f0-9]{6}([A-Fa-f0-9]{2})?$"
+        /// 정규 표현식 패턴: RRGGBB
+        let hexPattern = "^[A-Fa-f0-9]{6}$"
         let hexTest = NSPredicate(format: "SELF MATCHES %@", hexPattern)
         return hexTest.evaluate(with: hex)
     }
+    
+    private func colorType(from hexCode: String) -> SystemSetting.ColorType? {
+        return SystemSetting.ColorType.allCases.first(where: { $0.hexCodes == hexCode })
+    }
+
 
 }
