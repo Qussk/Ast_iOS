@@ -52,14 +52,16 @@ struct MenuListUI: View {
                     toggle: true
                 ).navigationBarBackButtonHidden()
 
-                SettingListItem(
-                    type: .allmenu,
-                    image: SystemSetting.MenuType.terms.imageName,
-                    title: SystemSetting.MenuType.terms.rawValue,
-                    subTitle: "",
-                    value: "",
-                    toggle: false
-                ).navigationBarBackButtonHidden()
+                NavigationLink(destination: TermsListUI()) {
+                    SettingListItem(
+                        type: .allmenu,
+                        image: SystemSetting.MenuType.terms.imageName,
+                        title: SystemSetting.MenuType.terms.rawValue,
+                        subTitle: "",
+                        value: "",
+                        toggle: false
+                    ).navigationBarBackButtonHidden()
+                }
 
                 SettingListItem(
                     type: .allmenu,
@@ -78,7 +80,7 @@ struct MenuListUI: View {
 struct ThemeSelectUI: View {
     let store: StoreOf<AllMenuUIFeature>
     @State private var isValid: Bool?
-    @FocusState private var isTextFieldFocused: Bool
+//    @FocusState private var isTextFieldFocused: Bool
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
@@ -108,7 +110,7 @@ struct ThemeSelectUI: View {
                             .fontColor(.h4, color: .b1)
                         TextField("예시: #E9E9E9", text: viewStore.$hexText)
                             .fontColor(.h5, color: .black)
-                            .focused($isTextFieldFocused)
+//                            .focused($isTextFieldFocused)
                             .textFieldStyle(.roundedBorder)
                             .onChange(of: viewStore.hexText) { text in
                                 if !text.isEmpty {
@@ -122,6 +124,7 @@ struct ThemeSelectUI: View {
                             .frame(height: 20)
                     }
                     .padding(.top, 10)
+                    
                     
                     if !viewStore.isValid && viewStore.hexText != "" {
                         Text("헥사코드가 아닙니다.")

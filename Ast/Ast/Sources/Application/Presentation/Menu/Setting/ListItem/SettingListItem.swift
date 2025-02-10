@@ -107,6 +107,7 @@ struct SettingListItemFeature {
     enum ListItemType: Equatable {
         case allmenu
         case alarm(alarmType?)
+        case terms(termsType?)
     }
 
     enum alarmType {
@@ -114,6 +115,11 @@ struct SettingListItemFeature {
 //        case rank
     }
     
+    enum termsType {
+        case personal
+        case marketing
+    }
+
     struct State: Equatable {
         var menuType: SystemSetting.MenuType = .alarm
         var isOn: Bool = false
@@ -138,6 +144,8 @@ struct SettingListItemFeature {
                     if alarmType == .today {
                         state.isOn = UserDefaults.isTodayAlarm ? true : false
                     }
+                case let .terms(termsType):
+                    break
                 }
                 return .none
             case let .toggleAction(type, toggle):
@@ -154,6 +162,8 @@ struct SettingListItemFeature {
                     if alarmType == .today {
                         UserDefaults.isTodayAlarm = toggle
                     }
+                case let .terms(termsType):
+                    break
                 }
                 return .none
             case .checkNotificationPermission :
