@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct WebUI: View {
-    let store: StoreOf<WebUIFeature> = Store(initialState: WebUIFeature.State(), reducer: { WebUIFeature() })
+    var store: StoreOf<WebUIFeature>
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in

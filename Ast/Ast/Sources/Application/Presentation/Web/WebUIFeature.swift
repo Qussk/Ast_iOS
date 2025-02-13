@@ -10,9 +10,9 @@ import ComposableArchitecture
 import WebKit
 
 
-enum WebUIType: Equatable {
-    case personal
-    case marketing
+enum WebUIType: String, Equatable {
+    case personal = "개인정보처리방침"
+    case marketing = "마케팅 활용 동의 안내"
 }
 
 @Reducer
@@ -27,7 +27,6 @@ struct WebUIFeature {
     
     enum Action: Equatable {
         case viewAppeared
-        case setWebView(WKWebView)
         case close
     }
     
@@ -35,9 +34,6 @@ struct WebUIFeature {
         Reduce { state, action in
             switch action {
             case .viewAppeared:
-                return .none
-            case .setWebView(let webView):
-                state.webView = webView
                 return .none
             case .close :
                 state.isClose = true
