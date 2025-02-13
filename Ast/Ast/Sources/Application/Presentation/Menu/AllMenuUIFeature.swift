@@ -13,7 +13,6 @@ import ComposableArchitecture
 @Reducer
 struct AllMenuUIFeature {
     struct State: Equatable {
-        var path = StackState<Path.State>()
         var astroNm: String = "aries"
         var progress: CGFloat = 0.25
         var impartText = ImpartStringData.impartText.shuffled()
@@ -30,7 +29,6 @@ struct AllMenuUIFeature {
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
         case viewAppeared
-        case path(StackAction<Path.State, Path.Action>)
         case selectedMenu(SystemSetting.MenuType)
         case selectColor(SystemSetting.ColorType)
         case onChangeTextField(text: String)
@@ -70,27 +68,6 @@ struct AllMenuUIFeature {
                     UserDefaults.myColor = text
                 }
                 return .none
-            case let .path(action):
-                return .none
-            }
-        }
-        .forEach(\.path, action: /Action.path) {
-            Path()
-        }
-    }
-    
-    struct Path: Reducer {
-        enum State: Equatable {
-            case alarm(AlarmSettingUIFeature.State = .init())
-        }
-        
-        enum Action: Equatable {
-            case alarm(AlarmSettingUIFeature.Action)
-        }
-        
-        var body: some Reducer<State, Action> {
-            Scope(state: /State.alarm, action: /Action.alarm) {
-                AlarmSettingUIFeature()
             }
         }
     }

@@ -144,7 +144,7 @@ struct SettingListItemFeature {
                     if alarmType == .today {
                         state.isOn = UserDefaults.isTodayAlarm ? true : false
                     }
-                case let .terms(termsType):
+                default:
                     break
                 }
                 return .none
@@ -162,7 +162,7 @@ struct SettingListItemFeature {
                     if alarmType == .today {
                         UserDefaults.isTodayAlarm = toggle
                     }
-                case let .terms(termsType):
+                default:
                     break
                 }
                 return .none

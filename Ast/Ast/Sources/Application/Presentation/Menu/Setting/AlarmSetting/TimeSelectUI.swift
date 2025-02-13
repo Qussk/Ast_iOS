@@ -107,7 +107,7 @@ struct TimeSelectUIFeature {
             switch action {
             case .viewAppeared:
                 return .none
-            case let .confirm(hour, minute):
+            case .confirm(_, _):
                 return .run { _ in
                     await self.dismiss()
                 }
