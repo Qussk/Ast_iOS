@@ -12,5 +12,6 @@ struct UserType {
     enum Gender: Int {
         case female = 0
         case male = 1
+        case none = 2
     }
 }

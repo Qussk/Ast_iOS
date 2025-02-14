@@ -31,6 +31,22 @@ extension UserDefaults {
     @UserDefaultsWrapper(key: "isSignUp", defaultValue: false)
     static var isSignUp: Bool
 
+    @UserDefaultsWrapper(key: "timeStemp", defaultValue: "")
+    static var timeStemp: String
+    
+    @UserDefaultsWrapper(key: "userBirth", defaultValue: "")
+    static var userBirth: String
+
+    @UserDefaultsWrapper(key: "userGender", defaultValue: 0)
+    static var userGender: Int
+    
+    @UserDefaultsWrapper(key: "userTime", defaultValue: "")
+    static var userTime: String
+
+    @UserDefaultsWrapper(key: "userRegion", defaultValue: "")
+    static var userRegion: String
+
+
 }
 
 // MARK: - UserDefaults Wrapper

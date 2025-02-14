@@ -44,6 +44,17 @@ extension String {
     func replaceArrow() -> String {
         return self.replacingOccurrences(of: "->", with: "→")
     }
+    
+    //시간 ":"삽입
+//    func lastTwoCharacters() -> String {
+//        guard self.count == 4 && !self.contains(":") else { return self }
+//
+//        var modifiedString = self
+//        let insertIndex = modifiedString.index(modifiedString.endIndex, offsetBy: -2) // 뒤에서 두 번째 위치
+//        modifiedString.insert(":", at: insertIndex)
+//
+//        return modifiedString
+//    }
 }
 
 
