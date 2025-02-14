@@ -66,6 +66,7 @@ struct HomeFeature {
 
     
     struct State: Equatable {
+        var isSignUp:Bool = false
         var topColor: Color = Color.fromHex(hex: UserDefaults.myColor)
         var isLandscape = UIDevice.current.orientation.isLandscape //가로 : true, 세로 : false
         var selectedTab: LeadType = .daily
@@ -75,6 +76,7 @@ struct HomeFeature {
         @PresentationState var toGuide: GuideUIFeature.State?
         @PresentationState var toMenu: AllMenuUIFeature.State?
         @PresentationState var dailyPopup: CommonPopupUIFeature.State?
+        @PresentationState var signUpPopup: SignUpFeature.State?
 
         //주간
         let currentMonthlydate = Date()
@@ -97,6 +99,8 @@ struct HomeFeature {
         case toDownloadTapped
         case dailySelectionPopup
         case dailyPopup(PresentationAction<CommonPopupUIFeature.Action>)
+        case isSignUpPopup
+        case signUpPopup(PresentationAction<SignUpFeature.Action>)
         case showWeaklyTapped
         case setWeakly
 
@@ -112,6 +116,12 @@ struct HomeFeature {
                 return .none
             case .viewAppeared:
                 state.topColor = Color.fromHex(hex: UserDefaults.myColor)
+                state.isSignUp = UserDefaults.isSignUp
+                if !state.isSignUp {
+                    return .run { send in
+                        await send(.isSignUpPopup)
+                    }
+                }
                 return .none
             case .selectTab(let tab):
                 state.selectedTab = tab
@@ -164,6 +174,16 @@ struct HomeFeature {
                 state.dailyPopup = nil
                 
                 return .none
+            case .isSignUpPopup:
+                state.signUpPopup = SignUpFeature.State()
+                return .none
+            case let .signUpPopup(.presented(action)):
+//                if action == .confirm {
+//                    
+//                }
+                state.signUpPopup = nil
+                return .none
+
             case .showWeaklyTapped:
                 state.isShowWeekly = true
                 return .run { send in
@@ -196,6 +216,9 @@ struct HomeFeature {
         }
         .ifLet(\.$dailyPopup, action: \.dailyPopup) {
             CommonPopupUIFeature()
+        }
+        .ifLet(\.$signUpPopup, action: \.signUpPopup) {
+            SignUpFeature()
         }
     }
 }

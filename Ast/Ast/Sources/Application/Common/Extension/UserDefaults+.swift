@@ -9,6 +9,7 @@ import SwiftUI
 
 
 extension UserDefaults {
+    //설정
     @UserDefaultsWrapper(key: "isDark", defaultValue: ScreanThemeManager.shared.isDarkMode)
     static var isDark: Bool
     
@@ -26,6 +27,10 @@ extension UserDefaults {
 
     @UserDefaultsWrapper(key: "myColor", defaultValue: "#F19A37")
     static var myColor: String
+    
+    @UserDefaultsWrapper(key: "isSignUp", defaultValue: false)
+    static var isSignUp: Bool
+
 }
 
 // MARK: - UserDefaults Wrapper

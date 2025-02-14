@@ -42,6 +42,10 @@ struct HomeUI: View {
                     let isLandscape = newSize.width > newSize.height
                     viewStore.send(.orientationChanged(isLandscape))
                 }
+                .clearFullScreenCover(store: store.scope(state: \.$signUpPopup, action: \.signUpPopup), content: {
+                    store in
+                    SignUpUI()
+                })
             }
         }
     }
@@ -84,9 +88,6 @@ fileprivate struct HomeTopUI: View {
             .frame(height: viewStore.isLandscape ? 44 : 96)
             .padding(.bottom, 0)
             .cornerRadius(15, corners: [.bottomLeft, .bottomRight])
-            .fullScreenCover(isPresented: $isPresent) {
-                GuideUI()
-            }
             .onAppear {
                 topColor = Color.fromHex(hex: UserDefaults.myColor)
             }
@@ -98,6 +99,9 @@ fileprivate struct HomeTopUI: View {
                     Spacer()
                 }
                 .hidden()
+            }
+            .fullScreenCover(isPresented: $isPresent) {
+                GuideUI()
             }
         }
     }

@@ -10,14 +10,14 @@ import ComposableArchitecture
 
 struct SignUpUI: View {
     let store: StoreOf<SignUpFeature> = Store(initialState: SignUpFeature.State()) { SignUpFeature() }
-        
+
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             ZStack{
                 Color.black.opacity(0.4)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-                VStack{
+                VStack(alignment: .leading) {
                     
                     SignUpUserItem(store: store)
                     SignUpTermsItem(store: store)
@@ -31,15 +31,18 @@ struct SignUpUI: View {
                             .fontColor(.h4, color: .w1, background: .c1)
                             .cornerRadius(8)
                             .padding(.horizontal, 18)
-                            .padding(.bottom, 20)
+                            .padding(.bottom, 10)
                     }
                     .padding(.top, 10)
 
                 }
-                .frame(maxWidth: .infinity, maxHeight: 480)
-                .background(Color.white)
+                .frame(maxWidth: .infinity, maxHeight: 460)
+                .background(
+                    Color.white
+                        .cornerRadius(16)
+                )
                 .padding(.horizontal, 18)
-                .cornerRadius(20)
+
             }
             .ignoresSafeArea()
         }
@@ -49,10 +52,11 @@ struct SignUpUI: View {
 
 struct SignUpUserItem: View {
     let store: StoreOf<SignUpFeature>
+    @State var birth: String?
+    @State var time: String?
+    @State var region: String?
 
-    @State var birth:String = ""
-    @State var time:String = ""
-    @State var region:String = ""
+    let isValid = ValidHelper()
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
@@ -62,26 +66,43 @@ struct SignUpUserItem: View {
                         .fontColor(.h1, color: .black)
                         .padding(.top, 20)
                     
-                    Text("정확한 운세를 위해 고객님 정보를 수집할게요. \n입력하신 오직 별자리 운세를 점치는데에만 사용 돼요.🙏")
+                    Text("정확한 운세를 위해 고객님 정보를 수집할게요.🙏")
                         .fontColor(.h8, color: .black)
                 }
                 .padding(.horizontal, 18)
+                .padding(.bottom, 18)
                 
                 
                 HStack(spacing: 10) {
                     Text("생년월일 ")
                         .fontColor(.h5, color: .black)
                     VStack(spacing: 4) {
-                        TextField("19920406", text: $birth)
+                        TextField("19920406",text: viewStore.binding(get: { $0.birth },send: { SignUpFeature.Action.binding(.set(\.$birth, $0)) }))
                             .fontColor(.h5, color: .black)
-                            .textFieldStyle(.roundedBorder)
+                            .textFieldStyle(.plain)
+//                            .id("birth-\(viewStore.birth)")
+                            .keyboardType(.numberPad)
+//                            .onChange(of: viewStore.birth) { text in
+//                                viewStore.send(.onChangeBirthTF(text))
+////                                birth = viewStore.birth
+////                                viewStore.send(.onChangeTextField(SignUpFeature.filedType.birth, text))
+//                                    if text.count >= 8 {
+////                                        hideKeyboard()
+//                                    }
+//                            }
+
                         Rectangle()
                             .fill(Color.b3)
-                            .frame(height: 1.5)
+                            .frame(height: 1.2)
                         
                     }
-                }.padding(.horizontal, 18)
-                
+                    .frame(width: 100)
+                    Image(systemName: "checkmark.seal.fill")
+                        .foregroundColor(.c1)
+                        .isHidden(!isValid.isValidBirthDate(viewStore.birth))
+
+                }.padding(.horizontal, 30)
+
                 HStack(spacing: 10) {
                     Text("성별 ")
                         .fontColor(.h5, color: .black)
@@ -104,21 +125,25 @@ struct SignUpUserItem: View {
                         Text("여자")
                             .fontColor(.h6, color: .b2)
                     }
-                }.padding(.horizontal, 18)
-                
+                }.padding(.horizontal, 30)
+
                 
                 HStack(spacing: 10) {
                     Text("태어난 시 ")
                         .fontColor(.h5, color: .black)
                     VStack(spacing: 4) {
-                        TextField("17:30", text: $time)
+                        TextField("17:30",text: viewStore.binding(get: { $0.time },send: { SignUpFeature.Action.binding(.set(\.$time, $0)) }))
                             .fontColor(.h5, color: .black)
-                            .textFieldStyle(.roundedBorder)
+                            .textFieldStyle(.plain)
+                            .keyboardType(.numberPad)
+//                            .onChange(of: viewStore.time) { text in
+//                                viewStore.send(.onChangeTextField(SignUpFeature.filedType.time, text))
+//                            }
                         Rectangle()
                             .fill(Color.b3)
                             .frame(height: 1.5)
                     }
-                    .frame(width: 110)
+                    .frame(width: 100)
                     
                     Button {
                         
@@ -129,19 +154,25 @@ struct SignUpUserItem: View {
                             .fontColor(.h6, color: .b2)
                             .padding(.leading, -4)
                     }
-                }.padding(.horizontal, 18)
-                
+                }.padding(.horizontal, 30)
+
                 HStack(spacing: 10) {
                     Text("출생지")
                         .fontColor(.h5, color: .black)
                     VStack(spacing: 4) {
-                        TextField("ex)서울특별시 강남구", text: $time)
+                        TextField("서울특별시 강남구",text: viewStore.binding(get: { $0.region },send: { SignUpFeature.Action.binding(.set(\.$region, $0)) }))
                             .fontColor(.h5, color: .black)
-                            .textFieldStyle(.roundedBorder)
+                            .textFieldStyle(.automatic)
+//                            .onChange(of: viewStore.region) { text in
+//                                viewStore.send(.onChangeTextField(SignUpFeature.filedType.region, text))
+//                            }
+
                         Rectangle()
                             .fill(Color.b3)
                             .frame(height: 1.5)
                     }
+                    .frame(width: 150)
+
                     Button {
                         
                     } label: {
@@ -152,7 +183,10 @@ struct SignUpUserItem: View {
                             .padding(.leading, -4)
                     }
                     
-                }.padding(.horizontal, 18)
+                }.padding(.horizontal, 30)
+            }
+            .onTapGesture {
+                hideKeyboard()
             }
         }
     }
@@ -163,9 +197,6 @@ struct SignUpTermsItem: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack(alignment: .leading, spacing: 10) {
-                Rectangle()
-                    .fill(Color.b3)
-                    .frame(height: 1)
 
                 HStack {
                     Button {
@@ -197,18 +228,11 @@ struct SignUpTermsItem: View {
                     }
                 }
 
-                
-                Rectangle()
-                    .fill(Color.b3)
-                    .frame(height: 1)
 
             }
-            .padding(.top, 8)
+            .padding(.top, 18)
             .padding(.horizontal, 20)
         }
     }
 }
 
-#Preview {
-    SignUpUI()
-}
