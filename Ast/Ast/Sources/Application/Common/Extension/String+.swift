@@ -73,3 +73,29 @@ extension String {
     }
 
 }
+
+fileprivate func formatDateToString(_ date: Date, format: String) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = format
+    dateFormatter.locale = Locale(identifier: "ko_KR")
+    return dateFormatter.string(from: date)
+}
+
+fileprivate func formatStringToFormat( _ dateString: String, from fromFormat: String, to toFormat: String, locale: Locale? = nil) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = fromFormat
+    if let locale = locale {
+        dateFormatter.locale = locale
+    }
+    if let date = dateFormatter.date(from: dateString) {
+        return formatDateToString(date, format: toFormat)
+    } else {
+        return ""
+    }
+}
+
+extension String {
+    var tobirthDateDots: String {
+        formatStringToFormat(self, from: "yyyyMMdd", to: "yyyy.MM.dd")
+    }
+}
