@@ -10,18 +10,17 @@ import ComposableArchitecture
 
 struct MenuTop: View {
     let store: StoreOf<AllMenuUIFeature>
-    
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
                 VStack(alignment: .leading, spacing: 10) {
                     HStack {
-                        Button {
-
-                        } label: {
-                            Text("#기본 님")
+                        NavigationLink(destination: ProfileUI(profileType: .name)) {
+                            Text("#\(viewStore.userName) 님")
                                 .fontColor(.h1, color: .t1)
                         }
+                        .navigationBarBackButtonHidden()
+                        
                         Spacer()
                         FlagBubbleView()
                     }
@@ -30,30 +29,29 @@ struct MenuTop: View {
                         MenuTopItem(atrNm: "\(AstroTyp.getZodiacSign(birthDate: UserDefaults.userBirth)?.rawValue ?? "")")
                         VStack(alignment: .leading, spacing: 8) {
                             HStack(spacing: 10) {
-                                Button {
-
-                                } label: {
+                                NavigationLink(destination: ProfileUI(profileType: .gender)) {
                                     Image(UserDefaults.userGender == 0 ? "gender0" : "gender1")
                                         .resizable()
                                         .frame(width: 16, height: 16)
                                         .padding(.leading, 10)
                                 }
-                                Button {
+                                .navigationBarBackButtonHidden()
 
-                                } label: {
+                                NavigationLink(destination: ProfileUI(profileType: .birth)) {
                                     Text(UserDefaults.userBirth.tobirthDateDots)
                                         .fontColor(.h5, color: .t1)
                                 }
+                                .navigationBarBackButtonHidden()
+                                
                                 Spacer()
                             }
                             HStack(spacing: 10) {
-                                Button {
-                                    
-                                } label: {
+                                NavigationLink(destination: ProfileUI(profileType: .region)) {
                                     Text(UserDefaults.userRegion != "" ?  UserDefaults.userRegion : "출생지")
                                         .fontColor(.h5, color: .t1)
                                         .underline(UserDefaults.userRegion == "")
                                 }
+                                .navigationBarBackButtonHidden()
                                 
                                 Button {
                                     

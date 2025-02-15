@@ -34,6 +34,9 @@ extension UserDefaults {
     @UserDefaultsWrapper(key: "timeStemp", defaultValue: "")
     static var timeStemp: String
     
+    @UserDefaultsWrapper(key: "userName", defaultValue: "기본")
+    static var userName: String
+
     @UserDefaultsWrapper(key: "userBirth", defaultValue: "")
     static var userBirth: String
 
@@ -45,9 +48,6 @@ extension UserDefaults {
 
     @UserDefaultsWrapper(key: "userRegion", defaultValue: "")
     static var userRegion: String
-
-    @UserDefaultsWrapper(key: "editCount", defaultValue: 0)
-    static var editCount: Int
 
 }
 

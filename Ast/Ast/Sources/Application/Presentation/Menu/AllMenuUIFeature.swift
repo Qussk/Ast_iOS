@@ -14,6 +14,10 @@ import ComposableArchitecture
 struct AllMenuUIFeature {
     struct State: Equatable {
         var astroNm: String = "aries"
+        var userName:String = UserDefaults.userName
+        var userGender:Int = UserDefaults.userGender
+        var userBirth:String = UserDefaults.userBirth
+        var userRegion:String = UserDefaults.userRegion
         var progress: CGFloat = 0.25
         var impartText = ImpartStringData.impartText.shuffled()
         var amount: Int = 1
@@ -49,6 +53,10 @@ struct AllMenuUIFeature {
                     state.hexText = myColor
                     state.isValid = true
                 }
+                state.userName = UserDefaults.userName
+                state.userGender = UserDefaults.userGender
+                state.userBirth = UserDefaults.userBirth
+                state.userRegion = UserDefaults.userRegion
                 return .none
             case .selectedMenu(let option):
                 switch option {

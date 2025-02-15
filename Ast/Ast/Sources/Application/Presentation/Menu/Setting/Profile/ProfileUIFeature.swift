@@ -21,15 +21,22 @@ struct ProfileUIFeature {
     
     struct State: Equatable {
         var myColor:Color = .orange
-        let profileType: ProfileUIFeature.ProfileType = .name
-        let title:String = "닉네임을 입력해 주세요."
-        @BindingState var nameText:String = ""
+        var title:String = ""
+        var isColsed:Bool = false
+        @BindingState var nameText:String = UserDefaults.userName
+        var gender: Int = UserDefaults.userGender
+        var birth: String = UserDefaults.userBirth
+
     }
     
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
-        case viewAppeared
-        case setEditType(ProfileUIFeature.ProfileType)
+        case viewAppeared(ProfileUIFeature.ProfileType)
+        case setProfileTitle(ProfileUIFeature.ProfileType)
+        case setName(String)
+        case setGender(Int)
+        case setBirth(String)
+        case confirm(ProfileUIFeature.ProfileType)
     }
     
     
@@ -37,8 +44,53 @@ struct ProfileUIFeature {
         BindingReducer()
         Reduce { state, action in
             switch action {
-            case .viewAppeared:
+            case .viewAppeared(let type):
+                state.isColsed = true
                 state.myColor = Color.fromHex(hex: UserDefaults.myColor)
+                return .run { send in
+                    await send(.setProfileTitle(type))
+                }
+            case .setProfileTitle(let type):
+                switch type {
+                case .name:
+                    state.title = "닉네임을 입력해 주세요."
+                case .gender:
+                    state.title = "성별을 선택해 주세요."
+                case .birth:
+                    state.title = "생년월일을 선택해 주세요."
+                case .time:
+                    state.title = "태어난 시간을 선택해 주세요."
+                case .region:
+                    state.title = "태어난 장소를 선택해 주세요."
+                    break
+                }
+                return .none
+            case .setName(let text) :
+                state.nameText = text
+                return .none
+            case .setGender(let id) :
+                state.gender = id
+                return .none
+            case .setBirth(let date) :
+                state.birth = date
+                return .none
+            case .confirm(let type) :
+                switch type {
+                case .name:
+                    if state.nameText.count > 8 {
+                        state.nameText = String(state.nameText.prefix(8))
+                    }
+                    UserDefaults.userName = state.nameText
+                case .gender:
+                    UserDefaults.userGender = state.gender
+                case .birth:
+                    UserDefaults.userBirth = state.birth
+                case .time:
+                    break
+                case .region:
+                    break
+                }
+                state.isColsed = true
                 return .none
             default :
                 return .none

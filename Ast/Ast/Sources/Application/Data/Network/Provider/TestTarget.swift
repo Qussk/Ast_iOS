@@ -10,7 +10,7 @@ import Moya
 
 
 enum TestTarget {
-    case test
+    case test(String)
 }
 
 extension TestTarget: TargetType {
@@ -23,18 +23,17 @@ extension TestTarget: TargetType {
     
     var path: String {
         switch self {
-        case .test: return "astro/jsonTest"
+        case .test: return "astro/appConnectTest"
         }
     }
     
     var parameters: [String: Any]? {
-        let parameters = [String: Any]()
+        var parameters = [String: Any]()
         
         switch self {
-        case .test:
-//            parameters["limit"] = limit
-//            parameters["page"] = page
-            return nil
+        case let .test(ms) :
+            parameters["message"] = ms
+//            return nil
         }
         return parameters
     }
@@ -49,11 +48,12 @@ extension TestTarget: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .test: return .get
+        case .test: return .post
         }
     }
     
     var task: Moya.Task {
-        return .requestParameters(parameters: self.parameters ?? [:], encoding: URLEncoding.default)
+        return .requestParameters(parameters: self.parameters ?? [:], encoding: JSONEncoding.default)
+//        return .requestParameters(parameters: self.parameters ?? [:], encoding: URLEncoding.default)
     }
 }

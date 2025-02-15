@@ -34,8 +34,10 @@ struct SplashFeature {
                 state.appDelegate = appDelegate
                 return .run { send in
                     await send(.goToMain)
+                    
+                    ///APITest
 //                    do {
-//                        await send(.testFetch( try await self.testApi.fetch() ))
+//                        await send(.testFetch( try await self.testApi.fetch("안녕쿠") ))
 //                    } catch {
 //                        print("\(APIError.unowned)")
 //                    }
@@ -43,7 +45,7 @@ struct SplashFeature {
             case .goToMain:
                 guard let appDelegate = state.appDelegate else { return .none }
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                     appDelegate.resetRootViewController()
                 }
                 return .none
@@ -60,13 +62,13 @@ struct SplashFeature {
 
 
 struct TestAPIProvider  {
-    var fetch: () async throws -> [TestEntity]
+    var fetch: (String) async throws -> [TestEntity]
 }
 
 extension TestAPIProvider: DependencyKey {
     static let liveValue = Self(
-        fetch: {
-            let response = try await Provider<TestTarget>().asyncRequest(.test, entityType: [TestEntity].self)
+        fetch: { ms in
+            let response = try await Provider<TestTarget>().asyncRequest(.test(ms), entityType: [TestEntity].self)
             return response
         })
 }

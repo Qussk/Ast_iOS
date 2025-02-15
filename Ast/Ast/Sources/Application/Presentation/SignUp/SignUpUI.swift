@@ -81,7 +81,7 @@ struct SignUpUserItem: View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack(alignment: .leading, spacing: 16) {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("#기본님, 어서오세요!")
+                    Text("#회원님, 어서오세요!")
                         .fontColor(.h1, color: .black)
                         .padding(.top, 20)
                     
