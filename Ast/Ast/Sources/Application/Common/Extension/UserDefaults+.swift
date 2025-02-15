@@ -46,6 +46,8 @@ extension UserDefaults {
     @UserDefaultsWrapper(key: "userRegion", defaultValue: "")
     static var userRegion: String
 
+    @UserDefaultsWrapper(key: "editCount", defaultValue: 0)
+    static var editCount: Int
 
 }
 

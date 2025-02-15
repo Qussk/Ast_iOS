@@ -10,15 +10,18 @@ import ComposableArchitecture
 
 struct MenuTop: View {
     let store: StoreOf<AllMenuUIFeature>
-//    @State private var progress: CGFloat = 0.25
     
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
                 VStack(alignment: .leading, spacing: 10) {
                     HStack {
-                        Text("#기본 님")
-                            .fontColor(.h1, color: .t1)
+                        Button {
+
+                        } label: {
+                            Text("#기본 님")
+                                .fontColor(.h1, color: .t1)
+                        }
                         Spacer()
                         FlagBubbleView()
                     }
@@ -27,12 +30,20 @@ struct MenuTop: View {
                         MenuTopItem(atrNm: "\(AstroTyp.getZodiacSign(birthDate: UserDefaults.userBirth)?.rawValue ?? "")")
                         VStack(alignment: .leading, spacing: 8) {
                             HStack(spacing: 10) {
-                                Image(UserDefaults.userGender == 0 ? "gender0" : "gender1")
-                                    .resizable()
-                                    .frame(width: 16, height: 16)
-                                    .padding(.leading, 10)
-                                Text(UserDefaults.userBirth.tobirthDateDots)
-                                    .fontColor(.h5, color: .t1)
+                                Button {
+
+                                } label: {
+                                    Image(UserDefaults.userGender == 0 ? "gender0" : "gender1")
+                                        .resizable()
+                                        .frame(width: 16, height: 16)
+                                        .padding(.leading, 10)
+                                }
+                                Button {
+
+                                } label: {
+                                    Text(UserDefaults.userBirth.tobirthDateDots)
+                                        .fontColor(.h5, color: .t1)
+                                }
                                 Spacer()
                             }
                             HStack(spacing: 10) {
