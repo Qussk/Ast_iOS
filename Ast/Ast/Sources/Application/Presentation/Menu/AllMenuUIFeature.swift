@@ -17,6 +17,7 @@ struct AllMenuUIFeature {
         var userName:String = UserDefaults.userName
         var userGender:Int = UserDefaults.userGender
         var userBirth:String = UserDefaults.userBirth
+        var userTime:String = UserDefaults.userTime
         var userRegion:String = UserDefaults.userRegion
         var progress: CGFloat = 0.25
         var impartText = ImpartStringData.impartText.shuffled()
@@ -56,6 +57,7 @@ struct AllMenuUIFeature {
                 state.userName = UserDefaults.userName
                 state.userGender = UserDefaults.userGender
                 state.userBirth = UserDefaults.userBirth
+                state.userTime = UserDefaults.userTime
                 state.userRegion = UserDefaults.userRegion
                 return .none
             case .selectedMenu(let option):

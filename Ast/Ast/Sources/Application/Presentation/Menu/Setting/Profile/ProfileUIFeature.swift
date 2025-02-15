@@ -26,6 +26,8 @@ struct ProfileUIFeature {
         @BindingState var nameText:String = UserDefaults.userName
         var gender: Int = UserDefaults.userGender
         var birth: String = UserDefaults.userBirth
+        var time: String = UserDefaults.userTime
+        var region: String = UserDefaults.userRegion
 
     }
     
@@ -36,6 +38,8 @@ struct ProfileUIFeature {
         case setName(String)
         case setGender(Int)
         case setBirth(String)
+        case setTime(String)
+        case setRegion(String)
         case confirm(ProfileUIFeature.ProfileType)
     }
     
@@ -62,7 +66,6 @@ struct ProfileUIFeature {
                     state.title = "태어난 시간을 선택해 주세요."
                 case .region:
                     state.title = "태어난 장소를 선택해 주세요."
-                    break
                 }
                 return .none
             case .setName(let text) :
@@ -73,6 +76,12 @@ struct ProfileUIFeature {
                 return .none
             case .setBirth(let date) :
                 state.birth = date
+                return .none
+            case .setRegion(let region) :
+                state.region = region
+                return .none
+            case .setTime(let time) :
+                state.time = time
                 return .none
             case .confirm(let type) :
                 switch type {
@@ -86,9 +95,9 @@ struct ProfileUIFeature {
                 case .birth:
                     UserDefaults.userBirth = state.birth
                 case .time:
-                    break
+                    UserDefaults.userTime = state.time
                 case .region:
-                    break
+                    UserDefaults.userRegion = state.region
                 }
                 state.isColsed = true
                 return .none

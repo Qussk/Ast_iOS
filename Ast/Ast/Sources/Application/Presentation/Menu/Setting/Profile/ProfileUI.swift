@@ -12,7 +12,7 @@ struct ProfileUI: View {
     let store: StoreOf<ProfileUIFeature> = Store(initialState: ProfileUIFeature.State(), reducer: { ProfileUIFeature() })
     @State var profileType: ProfileUIFeature.ProfileType
     @Environment(\.dismiss) private var dismiss
-
+    
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack(alignment: .leading, spacing: 0) {
@@ -39,14 +39,15 @@ struct ProfileUI: View {
                 case .name : NameItem(store: store)
                 case .gender : GenderItem(store: store)
                 case .birth : BirthItem(store: store)
-                case .time : Spacer()
-                case .region : Spacer()
+                case .region : RegionItem(store: store)
+                case .time : TimeItem(store: store)
                 }
                 
-                Text("🚨 회원 정보를 변경한 경우 다음 운세부터 반영이 돼요.").isHidden(profileType == .name)
+                Text("🚨 회원 정보를 변경한 경우 다음 운세부터 반영이 돼요.")
                     .fontColor(.l1, color: .b1)
                     .padding(.top, 60)
                     .padding(.horizontal, 30)
+                    .isHidden(profileType == .name)
                 
                 Spacer()
             }
@@ -65,7 +66,7 @@ struct ProfileUI: View {
 struct NameItem: View {
     let store: StoreOf<ProfileUIFeature>
     @FocusState var isTextFieldFocused: Bool
-
+    
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack(alignment: .leading, spacing: 0) {
@@ -93,7 +94,7 @@ struct GenderItem: View {
     let store: StoreOf<ProfileUIFeature>
     @State private var selectedGender: String? = nil
     let genders: [(String, String)] = [("gender0", "여성"), ("gender1", "남성")]
-
+    
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             HStack(spacing: 24) {
@@ -145,7 +146,7 @@ struct BirthItem: View {
         components.day = Int(UserDefaults.userBirth.suffix(2))
         return calendar.date(from: components) ?? Date()
     }()
-
+    
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
@@ -158,9 +159,7 @@ struct BirthItem: View {
                 .frame(height: 250)
                 .datePickerStyle(.wheel)
                 .labelsHidden()
-                .environment(\.locale, Locale(identifier: "ko_KR")) // 한국식 날짜 형식
-                // 선택한 날짜 표시
-//                Text("선택한 날짜: \(formattedDate)")
+                .environment(\.locale, Locale(identifier: "ko_KR"))
             }
             .padding(.top, 30)
             .onChange(of: selectedDate) { _ in
@@ -173,7 +172,90 @@ struct BirthItem: View {
         formatter.dateFormat = "yyyyMMdd"
         return formatter.string(from: selectedDate)
     }
+    
+}
 
+struct RegionItem: View {
+    let store: StoreOf<ProfileUIFeature>
+    
+    @State private var selectedProvince: String = "서울특별시"
+    @State private var selectedCity: String = "강남구"
+    
+    var body: some View {
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            VStack {
+                HStack(spacing: 0) {
+                    Picker("광역시/도", selection: $selectedProvince) {
+                        ForEach(Locations.regionsKR.keys.sorted(), id: \.self) { province in
+                            Text(province).tag(province)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .onChange(of: selectedProvince) { newValue in
+                        if let firstCity = Locations.regionsKR[newValue]?.first {
+                            selectedCity = firstCity
+                            
+                            viewStore.send(.setRegion("\(selectedProvince) \(selectedCity)"))
+                        }
+                    }
+                    .frame(width: 200)
+                    
+                    Picker("시/군/구", selection: $selectedCity) {
+                        ForEach(Locations.regionsKR[selectedProvince] ?? [], id: \.self) { city in
+                            Text(city).tag(city)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .onChange(of: selectedCity) { _ in
+                        viewStore.send(.setRegion("\(selectedProvince) \(selectedCity)"))
+                    }
+                    
+                }
+                .padding(.top, 30)
+            }
+        }
+    }
+}
+
+struct TimeItem: View {
+    let store: StoreOf<ProfileUIFeature>
+    @State private var selectedHour = 0
+    @State private var selectedMinute = 0
+    let hours = Array(0..<24)
+    let minutes = Array(0..<60)
+    
+    var body: some View {
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            VStack {
+                HStack(spacing: 6) {
+                    Picker("시간", selection: $selectedHour) {
+                        ForEach(hours, id: \.self) { hour in
+                            Text(String(format: "%02d", hour))
+                        }
+                    }
+                    .pickerStyle(WheelPickerStyle())
+                    .frame(height: 150)
+                    .onChange(of: selectedHour) { newValue in
+                        
+                    }
+                    
+                    Text(":")
+                    Picker("분", selection: $selectedMinute) {
+                        ForEach(minutes, id: \.self) { minute in
+                            Text(String(format: "%02d", minute))
+                        }
+                    }
+                    .pickerStyle(WheelPickerStyle())
+                    .frame(height: 150)
+                    .onChange(of: selectedMinute) { newValue in
+                        viewStore.send(.setTime("\(String(format: "%02d", selectedHour))" + ":" + "\(String(format: "%02d", selectedMinute))"))
+                    }
+                }
+            }
+            .padding(.top, 45)
+            .padding(.horizontal, 60)
+        }
+    }
 }
 
 #Preview {

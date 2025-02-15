@@ -13,7 +13,7 @@ struct MenuTop: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: 0) {
                     HStack {
                         NavigationLink(destination: ProfileUI(profileType: .name)) {
                             Text("#\(viewStore.userName) 님")
@@ -25,7 +25,7 @@ struct MenuTop: View {
                         FlagBubbleView()
                     }
                     
-                    HStack(spacing: 10) {
+                    HStack(spacing: 0) {
                         MenuTopItem(atrNm: "\(AstroTyp.getZodiacSign(birthDate: UserDefaults.userBirth)?.rawValue ?? "")")
                         VStack(alignment: .leading, spacing: 8) {
                             HStack(spacing: 10) {
@@ -33,33 +33,31 @@ struct MenuTop: View {
                                     Image(UserDefaults.userGender == 0 ? "gender0" : "gender1")
                                         .resizable()
                                         .frame(width: 16, height: 16)
-                                        .padding(.leading, 10)
                                 }
                                 .navigationBarBackButtonHidden()
 
                                 NavigationLink(destination: ProfileUI(profileType: .birth)) {
                                     Text(UserDefaults.userBirth.tobirthDateDots)
-                                        .fontColor(.h5, color: .t1)
+                                        .fontColor(.h8, color: .t1)
                                 }
                                 .navigationBarBackButtonHidden()
-                                
+                            
+                                NavigationLink(destination: ProfileUI(profileType: .time)) {
+                                    Text(UserDefaults.userTime != "" ?  UserDefaults.userTime : "태어난 시")
+                                        .fontColor(.h8, color: .t1)
+                                        .underline(UserDefaults.userTime == "")
+                                }
+                                .navigationBarBackButtonHidden()
+
                                 Spacer()
                             }
                             HStack(spacing: 10) {
                                 NavigationLink(destination: ProfileUI(profileType: .region)) {
                                     Text(UserDefaults.userRegion != "" ?  UserDefaults.userRegion : "출생지")
-                                        .fontColor(.h5, color: .t1)
+                                        .fontColor(.h8, color: .t1)
                                         .underline(UserDefaults.userRegion == "")
                                 }
                                 .navigationBarBackButtonHidden()
-                                
-                                Button {
-                                    
-                                } label: {
-                                    Text(UserDefaults.userTime != "" ?  UserDefaults.userTime : "태어난 시")
-                                        .fontColor(.h5, color: .t1)
-                                        .underline(UserDefaults.userTime == "")
-                                }
                             }
                         }
                         
@@ -70,7 +68,8 @@ struct MenuTop: View {
                     }
                 }
                 .padding(.top, 10)
-                .padding(.horizontal, 18)
+                .padding(.leading, 18)
+                .padding(.trailing, 12)
             }
         }
     }
