@@ -37,7 +37,7 @@ struct SplashFeature {
                     
                     ///APITest
 //                    do {
-//                        await send(.testFetch( try await self.testApi.fetch("안녕쿠") ))
+//                        await send(.testFetch( try await self.testApi.fetch("안녕") ))
 //                    } catch {
 //                        print("\(APIError.unowned)")
 //                    }

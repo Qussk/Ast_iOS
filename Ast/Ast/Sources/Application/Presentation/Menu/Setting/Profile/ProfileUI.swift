@@ -236,7 +236,7 @@ struct TimeItem: View {
                     .pickerStyle(WheelPickerStyle())
                     .frame(height: 150)
                     .onChange(of: selectedHour) { newValue in
-                        
+                        viewStore.send(.setTime("\(String(format: "%02d", selectedHour))" + ":" + "\(String(format: "%02d", selectedMinute))"))
                     }
                     
                     Text(":")

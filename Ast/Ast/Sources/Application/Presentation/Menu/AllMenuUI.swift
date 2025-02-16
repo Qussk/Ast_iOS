@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 struct AllMenuUI: View {
     let store: StoreOf<AllMenuUIFeature> = Store(initialState: AllMenuUIFeature.State(), reducer: { AllMenuUIFeature() })
-    
+    @State private var viewID = UUID()
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -31,20 +31,22 @@ struct AllMenuUI: View {
                             .padding(.trailing, 18)
                             
                         }
-                        
+
                         MenuTop(store: self.store)
                         MenuCreditUI(store: self.store)
                         PageTurnTextView(texts: viewStore.impartText, duration: 10)
+                            .id(viewID)
                         MenuListUI(store: store)
                         Spacer()
                         
                         
-                        Text("ver: \(App.appVersion)")
+                        Text("ver \(App.appVersion)")
                             .fontColor(.l1, color: .b1)
                             .padding(.bottom, 30)
                     }
                     .onAppear {
                         viewStore.send(.viewAppeared)
+                        viewID = UUID() ///뷰 리랜더링
                     }
                 }
             }

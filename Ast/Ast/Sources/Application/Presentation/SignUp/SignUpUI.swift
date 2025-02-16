@@ -46,12 +46,12 @@ struct SignUpUI: View {
                             .fontColor(.h4, color: .w1, background: .c1)
                             .cornerRadius(8)
                             .padding(.horizontal, 18)
-                            .padding(.bottom, 10)
+                            .padding(.bottom, 15)
                     }
-                    .padding(.top, 10)
+                    .padding(.top, 20)
 
                 }
-                .frame(maxWidth: .infinity, maxHeight: 455)
+                .frame(maxWidth: .infinity, maxHeight: 390)
                 .background(
                     Color.white
                         .cornerRadius(16)
@@ -79,13 +79,13 @@ struct SignUpUserItem: View {
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 20) {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("#회원님, 어서오세요!")
+                    Text("회원님, 어서오세요!")
                         .fontColor(.h1, color: .black)
                         .padding(.top, 20)
                     
-                    Text("정확한 운세를 위해 고객님 정보를 수집할게요.🙏\n정보를 입력 할수록 더욱 정확해져요.")
+                    Text("정확한 운세를 위해 고객님 정보를 수집할게요.🙏\n정보를 입력 할수록 운세가 더욱 정확해져요.")
                         .fontColor(.h8, color: .black)
                 }
                 .padding(.horizontal, 18)
@@ -143,73 +143,75 @@ struct SignUpUserItem: View {
                         .frame(width: 18, height: 18)
                         .foregroundColor(.c1)
                         .isHidden(gender == .none ? true : false)
-                }.padding(.horizontal, 30)
-
-                
-                HStack(spacing: 10) {
-                    Text("태어난 시 ")
-                        .fontColor(.h5, color: .black)
-                    VStack(spacing: 4) {
-                        TextField("17:30", text: $time)
-                            .fontColor(.h5, color: .black)
-                            .textFieldStyle(.plain)
-                            .onChange(of: time) { text in
-                                if isValid.isValidTime(time) {
-                                    hideKeyboard()
-                                }
-                            }
-                        Rectangle()
-                            .fill(Color.b3)
-                            .frame(height: 1.5)
-                    }
-                    .frame(width: 80)
-                    Button {
-                        time = ""
-                    } label: {
-                        Image(systemName: "button.programmable")
-                            .fontColor(.h6, color: time == "" ? .c1 : .b2)
-                        Text("모름")
-                            .fontColor(.h6, color: time == "" ? .c1 : .b2)
-                            .padding(.leading, -4)
-                    }
-                    Image(systemName: "checkmark.seal.fill")
-                        .resizable()
-                        .frame(width: 18, height: 18)
-                        .foregroundColor(.c1)
-                        .isHidden(!isValid.isValidTime(time) ? true : false)
                 }
                 .padding(.horizontal, 30)
+                .padding(.bottom, 15)
 
                 
-                HStack(spacing: 10) {
-                    Text("출생지")
-                        .fontColor(.h5, color: .black)
-                    VStack(spacing: 4) {
-                        TextField("서울특별시 강남구",text: $region)
-                            .fontColor(.h5, color: .black)
-                            .textFieldStyle(.automatic)
-                        Rectangle()
-                            .fill(Color.b3)
-                            .frame(height: 1.5)
-                    }
-                    .frame(width: 130)
-                    Button {
-                        region = ""
-                    } label: {
-                        Image(systemName: "button.programmable")
-                            .fontColor(.h6, color: region == "" ? .c1 : .b2)
-                        Text("나중에")
-                            .fontColor(.h6, color: region == "" ? .c1 : .b2)
-                            .padding(.leading, -4)
-                    }
-                    Image(systemName: "checkmark.seal.fill")
-                        .resizable()
-                        .frame(width: 18, height: 18)
-                        .foregroundColor(.c1)
-                        .isHidden(region.count > 5 ? false : true)
-                }
-                .padding(.leading, 30)
-                .padding(.trailing, 10)
+//                HStack(spacing: 10) {
+//                    Text("태어난 시 ")
+//                        .fontColor(.h5, color: .black)
+//                    VStack(spacing: 4) {
+//                        TextField("17:30", text: $time)
+//                            .fontColor(.h5, color: .black)
+//                            .textFieldStyle(.plain)
+//                            .onChange(of: time) { text in
+//                                if isValid.isValidTime(time) {
+//                                    hideKeyboard()
+//                                }
+//                            }
+//                        Rectangle()
+//                            .fill(Color.b3)
+//                            .frame(height: 1.5)
+//                    }
+//                    .frame(width: 80)
+//                    Button {
+//                        time = ""
+//                    } label: {
+//                        Image(systemName: "button.programmable")
+//                            .fontColor(.h6, color: time == "" ? .c1 : .b2)
+//                        Text("모름")
+//                            .fontColor(.h6, color: time == "" ? .c1 : .b2)
+//                            .padding(.leading, -4)
+//                    }
+//                    Image(systemName: "checkmark.seal.fill")
+//                        .resizable()
+//                        .frame(width: 18, height: 18)
+//                        .foregroundColor(.c1)
+//                        .isHidden(!isValid.isValidTime(time) ? true : false)
+//                }
+//                .padding(.horizontal, 30)
+//
+//                
+//                HStack(spacing: 10) {
+//                    Text("출생지")
+//                        .fontColor(.h5, color: .black)
+//                    VStack(spacing: 4) {
+//                        TextField("서울특별시 강남구",text: $region)
+//                            .fontColor(.h5, color: .black)
+//                            .textFieldStyle(.automatic)
+//                        Rectangle()
+//                            .fill(Color.b3)
+//                            .frame(height: 1.5)
+//                    }
+//                    .frame(width: 130)
+//                    Button {
+//                        region = ""
+//                    } label: {
+//                        Image(systemName: "button.programmable")
+//                            .fontColor(.h6, color: region == "" ? .c1 : .b2)
+//                        Text("나중에")
+//                            .fontColor(.h6, color: region == "" ? .c1 : .b2)
+//                            .padding(.leading, -4)
+//                    }
+//                    Image(systemName: "checkmark.seal.fill")
+//                        .resizable()
+//                        .frame(width: 18, height: 18)
+//                        .foregroundColor(.c1)
+//                        .isHidden(region.count > 5 ? false : true)
+//                }
+//                .padding(.leading, 30)
+//                .padding(.trailing, 10)
             }
             .onTapGesture {
                 hideKeyboard()

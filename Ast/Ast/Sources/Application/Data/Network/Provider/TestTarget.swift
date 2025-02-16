@@ -23,7 +23,7 @@ extension TestTarget: TargetType {
     
     var path: String {
         switch self {
-        case .test: return "astro/appConnectTest"
+        case .test: return "astro/gptTest"
         }
     }
     

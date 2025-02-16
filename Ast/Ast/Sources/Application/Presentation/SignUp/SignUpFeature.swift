@@ -10,11 +10,6 @@ import SwiftUI
 
 @Reducer
 struct SignUpFeature {
-    enum filedType {
-        case birth
-        case time
-        case region
-    }
     enum Item: Int  {
         case personal = 0
         case marketing
@@ -87,8 +82,8 @@ struct SignUpFeature {
                     UserDefaults.timeStemp = getCurrentTimeIntervalSince1970()
                     UserDefaults.userBirth = birth
                     UserDefaults.userGender = gender.rawValue
-                    UserDefaults.userTime = time
-                    UserDefaults.userRegion = region
+//                    UserDefaults.userTime = time
+//                    UserDefaults.userRegion = region
                     UserDefaults.isSignUp = true
 
                     state.isColosed = true
