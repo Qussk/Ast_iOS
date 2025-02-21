@@ -6,6 +6,36 @@
 //
 import SwiftUI
 
+
+extension Color {
+    static var random: Color {
+        Color(
+            red: .random(in: 0.7...1),
+            green: .random(in: 0.7...1),
+            blue: .random(in: 0.8...1)
+        )
+    }
+    
+    
+    /// 저장된 랜덤 컬러를 저장함
+    static func saveToStorage(color: Color) -> Data? {
+        let uiColor = UIColor(color)
+        guard let colorData = try? NSKeyedArchiver.archivedData(withRootObject: uiColor, requiringSecureCoding: false) else {
+            return nil
+        }
+        return colorData
+    }
+
+    /// 저장된 Data에서 색을 불러옴
+    static func getStoredColor(from colorData: Data?) -> Color {
+        guard let colorData = colorData,
+              let uiColor = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colorData) as? UIColor else {
+            return Color.random // 저장된 데이터가 없다면 랜덤 컬러 반환
+        }
+        return Color(uiColor)
+    }
+}
+
 extension Color {
     ///Alpha 값 없음.
     /// Color를 Hex 문자열로 변환하는 함수

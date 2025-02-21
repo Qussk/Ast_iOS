@@ -16,6 +16,8 @@ struct SystemSetting {
         case darkMode = "Light/Dark Mode" //"화면모드"
         case terms = "이용약관"
         case review = "앱리뷰쓰기"
+        case licence = "오픈소스 라이선스"
+        case advertisement = "광고문의"
         
         var imageName: String {
             switch self {
@@ -29,6 +31,10 @@ struct SystemSetting {
                 return "terms"
             case .review:
                 return "review"
+            case .licence:
+                return "licence"
+            case .advertisement:
+                return "advertisement"
             }
         }
     }

@@ -74,3 +74,22 @@ extension View {
         }
     }
 }
+
+extension View {
+    func getRandomColor() -> Color {
+        @AppStorage("savedRandomColor") var savedColorData: Data?
+        
+        ///저장된 컬러 있으면 AppStorage에 저장된 컬러 사용
+        if let colorData = savedColorData,
+           let uiColor = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colorData) as? UIColor {
+            return Color(uiColor)
+        } else {
+            let randomColor = Color.random
+            /// 랜덤 컬러를 저장
+            if let colorData = Color.saveToStorage(color: randomColor) {
+                savedColorData = colorData
+            }
+            return randomColor
+        }
+    }
+}

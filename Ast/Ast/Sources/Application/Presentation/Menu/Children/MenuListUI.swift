@@ -71,6 +71,25 @@ struct MenuListUI: View {
                     value: "",
                     toggle: false
                 ).navigationBarBackButtonHidden()
+                
+                SettingListItem(
+                    type: .allmenu,
+                    image: SystemSetting.MenuType.licence.imageName,
+                    title: SystemSetting.MenuType.licence.rawValue,
+                    subTitle: "",
+                    value: "",
+                    toggle: false
+                ).navigationBarBackButtonHidden()
+
+                SettingListItem(
+                    type: .allmenu,
+                    image: SystemSetting.MenuType.advertisement.imageName,
+                    title: SystemSetting.MenuType.advertisement.rawValue,
+                    subTitle: "",
+                    value: "",
+                    toggle: false
+                ).navigationBarBackButtonHidden()
+
             }
         }
     }

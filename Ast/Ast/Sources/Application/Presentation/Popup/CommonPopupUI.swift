@@ -32,7 +32,7 @@ struct CommonPopupUI: View {
                     Image(viewStore.imageName)
                         .resizable()
                         .padding(.top, 10)
-                        .frame(width: 160, height: 154)
+                        .frame(width: 96, height: 96)
                         .frame(maxWidth: .infinity, alignment: .center)
                     Text(viewStore.bottomText)
                         .fontColor(.l1, color: .b1)

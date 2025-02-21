@@ -83,11 +83,12 @@ struct MenuTop: View {
 }
 
 struct MenuTopItem: View {
+
     var atrNm = ""
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(Color.gray)
+                .fill(getRandomColor())
                 .frame(width: 46, height: 46)
                 .cornerRadius(23)
             
