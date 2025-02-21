@@ -12,6 +12,7 @@ let screenWidth = screenSize.width
 let screenHeight = screenSize.height
 let statusBarHeight = UIApplication.topSafeAreaHeight
 let statusbottomBarHeight = UIApplication.bottomSafeAreaHeight
+let tabBarHeight = UIApplication.tabBarHeight
 
 
 

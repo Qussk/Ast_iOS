@@ -30,3 +30,20 @@ struct Colors: ViewModifier {
             .background(backgroundColor == nil ? .clear : backgroundColor)
     }
 }
+
+struct PaddingsStatusBar: ViewModifier {
+    var edges: Edge.Set
+    
+    func body(content: Content) -> some View {
+        switch edges {
+        case .top:
+            content
+                .padding(.top, max(0, statusBarHeight - 44))
+        case .bottom:
+            content
+                .padding(.bottom, max(0, statusbottomBarHeight - 30))
+        default:
+            content
+        }
+    }
+}

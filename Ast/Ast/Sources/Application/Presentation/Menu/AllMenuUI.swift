@@ -16,39 +16,42 @@ struct AllMenuUI: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             NavigationStack {
-                ScrollView {
-                    VStack(spacing: 0) {
-                        HStack(spacing: 10) {
-                            Spacer()
-                            Button {
-                                dismiss()
-                            } label: {
-                                Image("close")
-                                    .resizable()
-                                    .tint(.b1)
-                                    .frame(width: 28, height: 28)
+                VStack {
+                    ScrollView {
+                        VStack(spacing: 0) {
+                            HStack(spacing: 10) {
+                                Spacer()
+                                Button {
+                                    dismiss()
+                                } label: {
+                                    Image("close")
+                                        .resizable()
+                                        .tint(.b1)
+                                        .frame(width: 28, height: 28)
+                                }
+                                .padding(.trailing, 18)
+                                
                             }
-                            .padding(.trailing, 18)
                             
+                            MenuTop(store: self.store)
+                            MenuCreditUI(store: self.store)
+                            PageTurnTextView(texts: viewStore.impartText, duration: 10)
+                                .id(viewID)
+                            MenuListUI(store: store)
+                            Spacer()
+                            
+                            
+                            Text("ver \(App.appVersion)")
+                                .fontColor(.l1, color: .b1)
+                                .padding(.bottom, 30)
                         }
-
-                        MenuTop(store: self.store)
-                        MenuCreditUI(store: self.store)
-                        PageTurnTextView(texts: viewStore.impartText, duration: 10)
-                            .id(viewID)
-                        MenuListUI(store: store)
-                        Spacer()
-                        
-                        
-                        Text("ver \(App.appVersion)")
-                            .fontColor(.l1, color: .b1)
-                            .padding(.bottom, 30)
-                    }
-                    .onAppear {
-                        viewStore.send(.viewAppeared)
-                        viewID = UUID() ///뷰 리랜더링
+                        .onAppear {
+                            viewStore.send(.viewAppeared)
+                            viewID = UUID() ///뷰 리랜더링
+                        }
                     }
                 }
+                .unignoresSafeArea(.top)
             }
         }
     }

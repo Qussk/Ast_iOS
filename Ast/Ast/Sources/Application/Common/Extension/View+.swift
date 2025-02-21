@@ -40,6 +40,16 @@ extension View {
         }
         return type == .top ? top : bottom
     }
+    
+    @ViewBuilder func unignoresSafeArea(_ edges: Edge.Set = .top) -> some View {
+        if edges.contains(.top) || edges.contains(.bottom) {
+            self.modifier(PaddingsStatusBar(edges: edges))
+        }
+        else {
+            self
+        }
+    }
+
 }
 
 extension View {

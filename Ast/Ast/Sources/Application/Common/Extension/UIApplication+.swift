@@ -23,6 +23,14 @@ extension UIApplication {
         let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         return scene?.windows.first?.safeAreaInsets.bottom ?? .zero
     }
+    
+    static var tabBarHeight:CGFloat {
+        let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        if let tabBarController = scene?.windows.first?.rootViewController as? UITabBarController {
+                return tabBarController.tabBar.frame.height
+            }
+        return 0
+    }
 }
 
 extension UIApplication {
