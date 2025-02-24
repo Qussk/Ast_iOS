@@ -38,3 +38,12 @@ fileprivate func timeIntervalToDate(_ timeInterval: TimeInterval) -> String {
     return formatter.string(from: date)
 }
 
+extension Date {
+    func toFormateString(dateFormat: DateFormat) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = .ko_KR
+        dateFormatter.dateFormat = dateFormat.rawValue
+        return dateFormatter.string(from: self)
+    }
+    
+}
