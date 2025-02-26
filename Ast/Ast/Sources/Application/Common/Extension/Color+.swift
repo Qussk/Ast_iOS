@@ -29,7 +29,7 @@ extension Color {
     /// 저장된 Data에서 색을 불러옴
     static func getStoredColor(from colorData: Data?) -> Color {
         guard let colorData = colorData,
-              let uiColor = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colorData) as? UIColor else {
+              let uiColor = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: colorData) else {
             return Color.random // 저장된 데이터가 없다면 랜덤 컬러 반환
         }
         return Color(uiColor)

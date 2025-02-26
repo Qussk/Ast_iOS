@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct CalendarRepresentable: UIViewRepresentable {
     let viewStore: ViewStoreOf<CalendarFeature>?
     let defaultSelectedDate = Calendar.current.startOfDay(for: Date())
-    
+    let myColor = Color.fromHex(hex: UserDefaults.myColor)
     func makeUIView(context: Context) -> FSCalendar {
         let calendar = FSCalendar()
         
@@ -28,9 +28,9 @@ struct CalendarRepresentable: UIViewRepresentable {
         calendar.appearance.titleDefaultColor = .b2
         calendar.appearance.weekdayTextColor = .b3
         calendar.appearance.weekdayFont = .h8
-        calendar.appearance.selectionColor = .green
+        calendar.appearance.selectionColor = UIColor(myColor)
         calendar.appearance.titleSelectionColor = .w1
-        calendar.appearance.titleTodayColor = .green
+        calendar.appearance.titleTodayColor = UIColor(myColor)
         calendar.appearance.todayColor = .clear
         calendar.appearance.eventDefaultColor = .clear
         calendar.appearance.eventSelectionColor = .clear
@@ -41,7 +41,6 @@ struct CalendarRepresentable: UIViewRepresentable {
         calendar.delegate = context.coordinator
         
         viewStore?.send(.calendarDidSelected(isSelectedByUser: false, toDate: defaultSelectedDate))
-        
         return calendar
     }
 
@@ -78,7 +77,7 @@ struct CalendarRepresentable: UIViewRepresentable {
         }
         
         func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-            return isDateInAllowedRange(date) 
+            return isDateInAllowedRange(date)
         }
         
         func calendar(_ calendar: FSCalendar, shouldDeselect date: Date) -> Bool {
@@ -86,7 +85,7 @@ struct CalendarRepresentable: UIViewRepresentable {
         }
         
         func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-            return .b2
+            return isDateInAllowedRange(date) ? .b2 : .b3
         }
         
         func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
@@ -95,9 +94,11 @@ struct CalendarRepresentable: UIViewRepresentable {
         }
         
         func isDateInAllowedRange(_ date: Date) -> Bool {
-            guard let twoWeeksLater = Calendar.current.date(byAdding: .day, value: 14, to: today) else { return false }
+            guard let weeksLater = Calendar.current.date(byAdding: .day, value: 5, to: today) else { return false }
+            guard let weeksEarlier = Calendar.current.date(byAdding: .day, value: -5, to: today) else { return false }
             let targetDate = Calendar.current.startOfDay(for: date)
-            return targetDate >= today && targetDate <= twoWeeksLater
+            //targetDate >= today &&
+            return targetDate <= weeksLater && targetDate >= weeksEarlier
         }
         
         func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {

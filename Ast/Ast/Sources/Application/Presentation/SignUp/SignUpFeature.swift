@@ -64,7 +64,7 @@ struct SignUpFeature {
                     state.toMarketing = webUIFeature
                     return .none
                 }
-            case let .confirm(birth, gender, time, region):
+            case let .confirm(birth, gender, _, _):
                 let isVaild = ValidHelper()
                 guard isVaild.isValidBirthDate(birth),
                       gender != .none

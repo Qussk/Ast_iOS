@@ -177,7 +177,7 @@ struct HomeFeature {
             case .isSignUpPopup:
                 state.signUpPopup = SignUpFeature.State()
                 return .none
-            case let .signUpPopup(.presented(action)):
+            case let .signUpPopup(.presented(_)):
 //                if action == .confirm {
 //                    
 //                }

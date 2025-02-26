@@ -91,7 +91,7 @@ extension View {
         
         ///저장된 컬러 있으면 AppStorage에 저장된 컬러 사용
         if let colorData = savedColorData,
-           let uiColor = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colorData) as? UIColor {
+           let uiColor = try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: colorData) {
             return Color(uiColor)
         } else {
             let randomColor = Color.random

@@ -24,6 +24,18 @@ extension Date {
         let weekOfMonth = calendar.component(.weekOfMonth, from: currentDate)
         return "\(weekOfMonth)"
     }
+    
+    /**
+     날짜 객체에 월을 더하거나 뺌.
+     - parameters:
+       - months: 더하거나 뺄 월 정수 값.
+     - returns: 날짜 객체.
+     */
+    func addMonths(_ months: Int) -> Date? {
+        return add(byAdding: .month, value: months)
+    }
+    
+
 }
 
 
@@ -46,4 +58,20 @@ extension Date {
         return dateFormatter.string(from: self)
     }
     
+}
+
+private extension Date {
+    func add(byAdding component: Calendar.Component, value: Int) -> Date? {
+        let calendar = Calendar.current
+        
+        guard let date = calendar.date(byAdding: component, value: value, to: self)
+        else { return nil }
+        
+        let components = calendar.dateComponents([.year, .month, .day], from: date)
+        
+        guard let addingDate = calendar.date(from: components)
+        else { return  nil }
+        
+        return addingDate
+    }
 }

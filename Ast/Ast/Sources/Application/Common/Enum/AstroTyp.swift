@@ -166,3 +166,44 @@ enum LeadType: String, CaseIterable {
     case monthly = "월간"
     case yearly = "년간"
 }
+
+
+struct CalendarType {
+    enum Season: String {
+        case winter = "❄️"
+        case spring = "🌿"
+        case cherryBlossom = "🌸"
+        case summer = "🌻"
+        case vacation = "⛱️"
+        case lateSummer = "🎻"
+        case autumn = "🍂"
+        case christmas = "🎄"
+        case none = ""
+
+        static func currentSeason() -> Season {
+            let month = Calendar.current.component(.month, from: Date())
+
+            switch month {
+            case 1, 2:
+                return .winter
+            case 3 :
+                return .cherryBlossom
+            case 4, 5 :
+                return .spring
+            case 6, 7 :
+                return .summer
+            case 8 :
+                return .vacation
+            case 9, 10 :
+                return .lateSummer
+            case 11:
+                return .autumn
+            case 12 :
+                return .christmas
+            default:
+                return .none //지정하지 않음.
+            }
+        }
+    }
+
+}
